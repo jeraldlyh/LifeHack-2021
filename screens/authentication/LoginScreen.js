@@ -31,6 +31,7 @@ function LoginScreen({ navigation }) {
                             value={email}
                             onChangeText={email => setEmail(email.toLowerCase())}
                             keyboardType="email-address"
+                            theme={{ colors: { primary: "#FF5029" } }}
                         />
                         <TextInput
                             mode="flat"
@@ -40,6 +41,7 @@ function LoginScreen({ navigation }) {
                             onChangeText={password => setPassword(password)}
                             secureTextEntry={secureText}
                             right={<TextInput.Icon name="eye" onPress={() => setSecureText(!secureText)}/>}
+                            theme={{ colors: { primary: "#FF5029" } }}
                         />
                         <Button onPress={() => loginUser(email, password)} text="Login" backgroundColor="#FE904B" textColor="#FFF" height={t.h12} />
                     </View>
