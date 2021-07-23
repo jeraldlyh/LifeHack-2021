@@ -8,18 +8,17 @@ import { useAuth } from "../context/AuthContext";
 const Root = createStackNavigator();
 
 const RootStack = () => {
-    // const { isLoggedIn } = useAuth();
-    const isLoggedIn = true;
+    const { currentUser } = useAuth();
+    // const isLoggedIn = true;
 
 
     return (
         <Root.Navigator screenOptions={{ headerShown: false }}>
-            {/* {
-                isLoggedIn 
+            {
+                currentUser 
                     ? <Root.Screen name="Tab" component={TabStack} />
                     : <Root.Screen name="Auth" component={AuthStack}/>
-            } */}
-            <Root.Screen name="Auth" component={AuthStack}/>
+            }
         </Root.Navigator>
     )
 }

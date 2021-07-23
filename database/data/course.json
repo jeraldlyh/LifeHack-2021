@@ -1,0 +1,36 @@
+[
+    {
+        "name": "App Development",
+        "quizzes": [
+            {
+                "question": "How do you print in Python?",
+                "options": {
+                    "1": "console.log('Hi')",
+                    "2": "print('Hi')",
+                    "3": "System.out.print('Hi')"
+                },
+                "difficulty": 1,
+                "answer": 2
+            },
+            {
+                "question": "How do you declare an array in Python?",
+                "options": {
+                    "1": "testArray = []",
+                    "2": "int testArray[]",
+                    "3": "int array = []"
+                },
+                "difficulty": 2,
+                "answer": 1
+            },
+            {
+                "question": "Which is the correct syntax for loops in Python?",
+                "options": {
+                    "1": "for (int i = 0; i < 5; i++)",
+                    "2": "for x in 5: "
+                },
+                "difficulty": 1,
+                "answer": 2
+            }
+        ]
+    }
+]
