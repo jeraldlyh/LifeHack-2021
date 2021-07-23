@@ -32,8 +32,19 @@ export const insertCourse = (data) => {
                     .doc(data.name)
                     .set({
                         name: data.name,
-                        quizzes: data.quizzes
+                        quizzes: data.quizzes,
+                        image: data.image
                     })
             }
         });
 };
+
+export const getCourseImage = (name) => {
+    return new Promise((resolve, reject) => {
+        firebase.firestore().collection("Course")
+            .doc(name)
+            .get()
+            .then(doc => resolve(doc.data().image))
+            .catch(error => "Error in getCourseImage")
+    })
+}

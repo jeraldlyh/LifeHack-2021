@@ -10,6 +10,8 @@ import CourseOptions from './screens/home/components/CourseOptions';
 import HomeScreen from './screens/home/HomeScreen';
 import CourseHome from './screens/course/CourseHome';
 import Lesson from './screens/course/Lesson';
+import { loadData } from "./database/loadData"
+
 
 LogBox.ignoreAllLogs();
 
@@ -28,21 +30,17 @@ export default function App() {
 
     useEffect(() => {       // Load default fonts
         loadFonts();
+        loadData();
     }, [])
 
     return (
         isLoaded
             ? (
-                // <AuthProvider>
-                //     <NavigationContainer>
-                //         <RootStack />
-                //     </NavigationContainer>
-                // </AuthProvider>
-                // <NavigationContainer>
-                //     <HomeStack/>
-                // </NavigationContainer>
-                <Lesson/>
-                
+                <AuthProvider>
+                    <NavigationContainer>
+                        <RootStack />
+                    </NavigationContainer>
+                </AuthProvider>
             )
             : (
                 <Loading />

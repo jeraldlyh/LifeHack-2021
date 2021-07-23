@@ -7,7 +7,7 @@ export const getRandomQuizFromCourseByDifficulty = (course, difficulty) => {
             .doc(course)
             .get()
             .then(doc => {
-                const quizzes = _.filter(doc.data().quizzes, function(o) {
+                const quizzes = _.filter(doc.data().quizzes, function (o) {
                     return o.difficulty === difficulty
                 })
                 resolve(_.sample(quizzes))
@@ -21,8 +21,14 @@ export const createCompetition = async (course, user, amount, difficulty) => {
 
     firebase.firestore().collection("Competition")
         .add({
-            host: user,
-            player: "",
+            host: {
+                name: user.name,
+                avatar: user.avatar
+            },
+            player: {
+                name: "",
+                avatar: "",
+            },
             quiz: quiz,
             valid: true,
             started: false,
