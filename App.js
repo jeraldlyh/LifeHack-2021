@@ -5,11 +5,8 @@ import { LogBox } from "react-native";
 import * as Font from "expo-font";
 import RootStack from './screens/RootStack';
 import Loading from './components/Loading';
-import CompetitionStack from './screens/competition/CompetitionStack';
-import CourseOptions from './screens/home/components/CourseOptions';
-import HomeScreen from './screens/home/HomeScreen';
-import CourseHome from './screens/course/CourseHome';
-import JavaCourse from './screens/course/JavaCourse';
+import { loadData } from "./database/loadData"
+
 
 LogBox.ignoreAllLogs();
 
@@ -28,6 +25,7 @@ export default function App() {
 
     useEffect(() => {       // Load default fonts
         loadFonts();
+        loadData();
     }, [])
 
     return (
@@ -38,9 +36,6 @@ export default function App() {
                         <RootStack />
                     </NavigationContainer>
                 </AuthProvider>
-                // <NavigationContainer>
-                //     <CompetitionStack/>
-                // </NavigationContainer>
             )
             : (
                 <Loading />

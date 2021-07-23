@@ -2,21 +2,26 @@ import React, { Fragment, useEffect, useState } from "react";
 import { Text, View, StyleSheet, TouchableOpacity, FlatList, SafeAreaView } from "react-native";
 import { t } from "react-native-tailwindcss";
 import firebase from "../../database/firebaseDB";
-import { Divider } from "react-native-elements";
-import Button from "../../components/Button";
 import { BlurView } from "expo-blur";
 import _ from "lodash";
 import { createCompetition } from "../../database/actions/Competition";
 import Competition from "./components/Competition";
+import { useAuth } from "../../context/AuthContext";
 
-function CompetitionListScreen() {
+function CompetitionListScreen({ navigation }) {
     const [competitions, setCompetitions] = useState([])
     const [displayModal, setDisplayModal] = useState(false)
     const [displayErrorModal, setDisplayErrorModal] = useState(false)
     const [currentSelected, setCurrentSelected] = useState("")
+    const { currentProfile } = useAuth()
 
     const startCompetition = () => {
-        createCompetition("App Development", "a", 1000, 1)
+        console.log(currentProfile)
+        const user = {
+            name: currentProfile.name,
+            avatar: currentProfile.avatar
+        }
+        createCompetition("App Development", user, 1000, 1)
     }
 
     useEffect(() => {
@@ -91,33 +96,35 @@ function CompetitionListScreen() {
                     </BlurView>
                     : null
             }
+
+            <View />
+
             <TouchableOpacity style={styles.button} onPress={() => startCompetition()}>
-                <Text style={{fontFamily: "Poppins-SemiBold", color:"#888888", fontSize: 16}}>+ Create new battle</Text>
+                <Text style={{ fontFamily: "Poppins-SemiBold", color: "#888888", fontSize: 16 }}>+ Create new battle</Text>
             </TouchableOpacity>
-            <Competition name="Java for Beginners" creator="Nicholas Ong" />
-            <Competition name="Nuclear Physics" creator="Yvonne Lim" />
-            <Competition name="GCE O-Level English" creator="Jerald Lim" />
-            {/* {
+            {
                 competitions && competitions.length !== 0
                     ?
                     competitions.map(competition => {
+                        console.log(competition.quiz)
                         return (
-                            <View key={competition._id} style={[t.border2, t.borderBlack]}>
-                                <Text>Status: {competition.started ? "Started" : "Pending"}</Text>
-                                <Text>Topic: {competition.course}</Text>
-                                <Text>Created by: {competition.host}</Text>
-                                <TouchableOpacity
-                                    onPress={() => joinRoom(competition.host)}
-                                >
-                                    <Text>Join</Text>
-                                </TouchableOpacity>
-                            </View>
+                            <Competition
+                                key={competition._id}
+                                host={competition.host}
+                                player={competition.player}
+                                course={competition.course}
+                                navigation={() => navigation.push("Competition", {
+                                    title: competition.course,
+                                    host: competition.host,
+                                    currency: competition.amount,
+                                    quiz: competition.quiz,
+                                })}
+                            />
                         )
                     })
-                    : <View style={[t.flex, t.justifyCenter, t.itemsCenter, t.hFull]}>
-                        <Text>No competitions ongoing now!</Text>
-                    </View>
-            } */}
+                    :
+                    <Text>No competitions ongoing now!</Text>
+            }
         </SafeAreaView>
     )
 

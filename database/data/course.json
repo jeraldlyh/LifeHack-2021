@@ -1,6 +1,7 @@
 [
     {
-        "name": "App Development",
+        "name": "Python for Beginners",
+        "image": "https://i.ibb.co/L0KYqn1/java.jpg",
         "quizzes": [
             {
                 "question": "How do you print in Python?",
