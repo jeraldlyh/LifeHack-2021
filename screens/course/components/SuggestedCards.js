@@ -1,14 +1,40 @@
 import { CardStyleInterpolators } from '@react-navigation/stack'
 import React from 'react'
-import { StyleSheet, Text, View,Image } from 'react-native'
+import { t } from "react-native-tailwindcss";
+import { StyleSheet, Text, View,Image, TouchableOpacity } from 'react-native'
 
 export default function SuggestedCards(props) {
+    // console.log(eval(props.progress))
     return (
         <View style = {styles.container}>
-            <View style = {{padding:10}}>
-                <Text>Java for Beginners</Text>
+            <View style = {{padding:10,flex:1,alignItems:'center'}}>
+                <Text style ={{fontFamily:'Poppins-SemiBold',fontSize:12,marginBottom:10}}>{props.name}</Text>
+                <Text style ={{fontFamily:'Poppins-Normal',fontSize:10,marginBottom:10}}>{props.progress} topics completed</Text>
+                <View>
+                    <View style = {{width:125,borderWidth:1,height:3,borderRadius:9 }}>
+                    <View style={[StyleSheet.absoluteFill], {backgroundColor: props.color, width: eval(props.progress)*100 + "%",height:'100%'}}/>
+                    </View>
+                    {/* <View style = {{width:125,borderWidth:1,height:3 }}></View> */}
+                </View>
+                <TouchableOpacity style = {t.mT3}>
+                    <View style = {{width:96,height:22,borderRadius:9,backgroundColor:'#F2F2F2',justifyContent:'center',alignItems:'center'}}>
+                        <Text style = {{fontFamily:'Poppins-Normal',fontSize:9,color:props.color}}>Continue Course</Text>
+                    </View>
+                </TouchableOpacity>
             </View>
-            <Image source = {require("../../../assets/home/java.jpg")} style = {styles.image}/>
+            {props.name === "Java for Beginners" ? (
+                <Image source = {require("../../../assets/home/java.jpg")} style= {styles.image}/>
+            ) : null}
+            {props.name === "App Development" ? (
+                <Image
+                    source={require("../../../assets/home/appdev.jpg")}style=  {styles.image}
+                />
+            ) : null}
+            {props.name === "GCE O-Level English" ? (
+                <Image
+                    source={require("../../../assets/home/oleveleng.jpeg")}style=  {styles.image}
+                />
+            ) : null}
         </View>
     )
 }
@@ -19,13 +45,14 @@ const styles = StyleSheet.create({
         height:120,
         borderWidth:1,
         borderRadius:14,
+        // flex:1,
         flexDirection:'row',
-        justifyContent:'space-between'
+        justifyContent:'space-between',
+        marginBottom:20
     },
     image:{
         width:130,
         height:120,
         borderRadius:14,
-        alignSelf:'baseline'
     }
 })

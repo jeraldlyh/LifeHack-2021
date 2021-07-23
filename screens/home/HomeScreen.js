@@ -21,10 +21,10 @@ function HomeScreen(props) {
 
             <View style={[styles.guidingNav,  t.mT16]}>
                 <View>
-                <Text style={{ fontFamily: "Poppins-Bold", fontSize: 35 }}>
-                    Hi John! 
+                <Text style={{ fontFamily: "Poppins-Bold", fontSize: 37, color: "#EAB18E"}}>
+                    Hello John! 
                 </Text>
-                <Text style={{ fontFamily: "Poppins-Bold", fontSize: 18 ,marginTop:2}}>
+                <Text style={{ fontFamily: "Poppins-SemiBold", fontSize: 18 ,marginTop:2}}>
                     What do you need?
                 </Text>
                 </View>
