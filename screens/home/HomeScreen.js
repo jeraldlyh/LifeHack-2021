@@ -20,9 +20,15 @@ function HomeScreen(props) {
             </View> */}
 
             <View style={[styles.guidingNav,  t.mT16]}>
-                <Text style={{ fontFamily: "Poppins-Bold", fontSize: 20 }}>
-                    Hi John, what do you need?
+                <View>
+                <Text style={{ fontFamily: "Poppins-Bold", fontSize: 25 }}>
+                    Hi John! 
                 </Text>
+                <Text style={{ fontFamily: "Poppins-Bold", fontSize: 18 ,marginTop:20}}>
+                    What do you need?
+                </Text>
+                </View>
+                
                 <View style={styles.navOptions}>
                     <Options name = "Courses"/>
                     <Options name = "Games"/>
