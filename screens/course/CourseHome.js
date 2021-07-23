@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import { Icon } from "react-native-elements";
 import { ScrollView } from 'react-native-gesture-handler'
 import { t } from "react-native-tailwindcss";
 import Categories from './components/Categories'
@@ -8,12 +9,27 @@ import SuggestedCards from './components/SuggestedCards';
 
 export default function CourseHome(props) {
     return (
-        <View style = {styles.container}>
+        <ScrollView style = {styles.container}>
+            <View style = {{alignSelf:'flex-start',borderRadius:20,width:44,height:44,backgroundColor:'#A5A5A5',justifyContent:'center',alignItems:'center',marginBottom:20}}>
+                    <Icon
+                        name='arrow-back-outline'
+                        type='ionicon'
+                        color='white'
+                        size = {30}
+                    />
+            </View>
             <DayStreak/>
             <Text style = {{fontFamily:'Poppins-Bold', fontSize:28}}>
             Courses
             </Text>
-            <View style = {{marginTop:10,backgroundColor:'#F4F4F4',height:34,width:'100%',borderRadius:10}}>
+            <View style = {{marginTop:10,backgroundColor:'#F4F4F4',height:34,width:'100%',borderRadius:10,alignItems:'center',flexDirection:'row'}}>
+                <Icon name='ios-search-outline'
+                        type='ionicon'
+                        color='#B8B0B0'
+                        size = {20} style = {t.mL3}/>
+                        <Text style = {[t.mL3,{fontFamily:'Poppins-Normal',fontSize:17,color:'#A1A1A1'}]}>
+                            Search
+                        </Text>
             </View>
             <View style={[styles.applicationHeader, t.itemsCenter,t.flex]}>
                         <Text
@@ -40,14 +56,16 @@ export default function CourseHome(props) {
 
             </ScrollView>
 
-            <Text style={{ fontFamily: "Poppins-Bold", fontSize: 18 , marginTop:20}}>
+            <Text style={{ fontFamily: "Poppins-Bold", fontSize: 18 , marginTop:20,marginBottom:20}}>
                 Your Suggested
             </Text>
 
             <ScrollView>
-                <SuggestedCards/>
+                <SuggestedCards progress = "17/25" color = "#2593B6" name = "Java for Beginners"/>
+                <SuggestedCards progress = "11/25" color = "#0B14EF" name = "App Development"/>
+                <SuggestedCards progress = "17/25" color = "#037A25" name = "GCE O-Level English"/>
             </ScrollView>
-        </View>
+        </ScrollView>
     )
 }
 
@@ -55,6 +73,7 @@ const styles = StyleSheet.create({
     container:{
         marginTop:50,
         paddingHorizontal:33,
+        marginBottom:20,
     },
     applicationHeader: {
         flexDirection: "row",
