@@ -10,6 +10,7 @@ function RegisterScreen({ navigation }) {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [secureText, setSecureText] = useState(true);
     const { registerUser } = useAuth()
 
     return (
@@ -45,8 +46,8 @@ function RegisterScreen({ navigation }) {
                             style={[t.h16, t.w4_5, t.roundedLg, t.mB5]}
                             value={password}
                             onChangeText={password => setPassword(password)}
-                            secureTextEntry
-                            right={<TextInput.Icon name="eye" />}
+                            secureTextEntry={secureText}
+                            right={<TextInput.Icon name="eye" onPress={() => setSecureText(!secureText)} />}
                         />
                         <Button onPress={() => registerUser(name, email, password)} text="Register" backgroundColor="#FE904B" textColor="#FFF" height={t.h12} />
                     </View>

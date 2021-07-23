@@ -9,6 +9,7 @@ import { t } from "react-native-tailwindcss";
 function LoginScreen({ navigation }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [secureText, setSecureText] = useState(true);
     const { currentUser, setCurrentUser, loginUser } = useAuth()
 
     return (
@@ -37,8 +38,8 @@ function LoginScreen({ navigation }) {
                             style={[t.h16, t.w4_5, t.roundedLg, t.mT3, t.mB5]}
                             value={password}
                             onChangeText={password => setPassword(password)}
-                            secureTextEntry
-                            right={<TextInput.Icon name="eye" />}
+                            secureTextEntry={secureText}
+                            right={<TextInput.Icon name="eye" onPress={() => setSecureText(!secureText)}/>}
                         />
                         <Button onPress={() => loginUser(email, password)} text="Login" backgroundColor="#FE904B" textColor="#FFF" height={t.h12} />
                     </View>
