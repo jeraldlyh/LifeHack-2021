@@ -80,7 +80,8 @@ function AuthProvider(props) {
         currentProfile,
         loginUser,
         registerUser,
-        logoutUser
+        logoutUser,
+        retrieveProfile
     };
 
     return (

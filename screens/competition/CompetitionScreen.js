@@ -5,12 +5,13 @@ import firebase from "../../database/firebaseDB";
 import Button from "../../components/Button";
 import { BlurView } from "expo-blur";
 import _ from "lodash";
-import { leaveCompetition, updateAnswer } from "../../database/actions/Competition";
+import { invalidateRoom, leaveCompetition, updateAnswer } from "../../database/actions/Competition";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 import { getCourseImage } from "../../database/actions/Course";
 import { useAuth } from "../../context/AuthContext";
 import LoadingText from "./components/LoadingText";
 import Loading from "../../components/Loading";
+import { addCurrency } from "../../database/actions/Profile";
 
 
 function CompetitionScreen({ route, navigation }) {
@@ -20,6 +21,7 @@ function CompetitionScreen({ route, navigation }) {
     const [isPlaying, setIsPlaying] = useState(true);
     const { id, title, host, quiz, currency } = route.params;
     const { currentProfile } = useAuth();
+    const [displayCompletionModal, setDisplayCompletionModal] = useState(false);
 
 
     useEffect(() => {
@@ -31,9 +33,18 @@ function CompetitionScreen({ route, navigation }) {
             .onSnapshot(doc => {
                 const tempRoomData = doc.data();
                 setRoomData(tempRoomData);
-                // if (tempRoomData.host.submitted && tempRoomData.player.submitted) {     // Award points when both submits their answer
+                if (tempRoomData.host.submitted && tempRoomData.player.submitted) {     // Evaluate and award points when both submits their answer
+                    invalidateRoom(id);                 // Invalidate room such that it does not appear on the list
+                    setDisplayCompletionModal(true);
 
-                // };
+                    if (tempRoomData.host.isCorrect) {
+                        addCurrency(tempRoomData.host.name, tempRoomData.amount * 2);
+                    }
+
+                    if (tempRoomData.player.isCorrect) {
+                        addCurrency(tempRoomData.player.name, tempRoomData.amount * 2);
+                    }
+                };
             });
 
         return () => unsubscribe();
@@ -87,6 +98,10 @@ function CompetitionScreen({ route, navigation }) {
             });
     };
 
+    const exitRoom = () => {
+        navigation.navigate("List");
+    }
+
     if (!roomData) {
         return <Loading />;
     };
@@ -101,25 +116,63 @@ function CompetitionScreen({ route, navigation }) {
                 ]} />
                 <View style={[t.selfCenter, t.w40, t.mT48]}>
                     <Button text="Leave Now" backgroundColor="#FE904B" textColor="#FFF" height={t.h10} width={t.wFull} onPress={() => leaveRoom()} />
+                    <Text style={[styles.description, t.textXs, t.textRed500]}>Your points will not be refunded for leaving!</Text>
+                </View>
+            </BlurView>
+        )
+    } else if (isWaitingForResponse()) {
+        return (
+            <BlurView intensity={95} style={[t.itemCenter, t.justifyCenter, { height: "100%", position: "absolute", width: "100%", zIndex: 100 }]}>
+                <LoadingText text={[
+                    "Be patient while we wait for their answer...",
+                    "Just a little bit more...",
+                    "Oh, look behind you!"
+                ]} />
+            </BlurView>
+        )
+    }
+
+    const getFinalModal = (isCorrect) => {
+        if (isCorrect) {
+            return (
+                <BlurView intensity={95} style={[t.itemCenter, t.justifyCenter, { height: "100%", position: "absolute", width: "100%", zIndex: 100 }]}>
+                    <ConfettiCannon count={200} origin={{ x: -10, y: 0 }} />
+                    <View style={[t.flex, t.flexCol, t.itemsCenter, t.justifyCenter, t.h56, t.w56, t.bgWhite, t.roundedLg]}>
+                        <Text style={[styles.title, t.textCenter, t.mB1, t.textXl]}>Congralutations!</Text>
+                        <Text style={[styles.title, t.textCenter, t.textLg, t.mB3]}>+{roomData.amount} points</Text>
+                        <Text style={[styles.description, t.textCenter, t.mB3]}>You got the correct answer!</Text>
+                        <Button text="Exit" backgroundColor="#FE904B" textColor="#FFF" height={t.h10} width={t.wFull} onPress={() => exitRoom()} />
+                    </View>
+                </BlurView>
+            )
+        }
+        return (
+            <BlurView intensity={95} style={[t.itemCenter, t.justifyCenter, { height: "100%", position: "absolute", width: "100%", zIndex: 100 }]}>
+                <View style={[t.flex, t.flexCol, t.itemsCenter, t.justifyCenter, t.h56, t.w56, t.bgWhite, t.roundedLg]}>
+                    <Text style={[styles.title, t.textCenter, t.mB1, t.textXl]}>Oh no... </Text>
+                    <Text style={[styles.title, t.textCenter, t.textLg, t.mB3]}>-{roomData.amount} points</Text>
+                    <Text style={[styles.description, t.textCenter, t.mB3]}>You got the wrong answer!</Text>
+                    <Button text="Exit" backgroundColor="#FE904B" textColor="#FFF" height={t.h10} width={t.wFull} onPress={() => exitRoom()} />
                 </View>
             </BlurView>
         )
     }
 
+    const populateFinalModal = () => {
+        if (displayCompletionModal) {
+            if (isHost()) {
+                getFinalModal(roomData.host.isCorrect);
+            } else {
+                getFinalModal(roomData.player.isCorrect);
+            };
+        };
+    };
+
     return (
         <Fragment>
             {
-                isWaitingForResponse()
-                    ? <BlurView intensity={95} style={[t.itemCenter, t.justifyCenter, { height: "100%", position: "absolute", width: "100%", zIndex: 100 }]}>
-                        <LoadingText text={[
-                            "Be patient while we wait for their answer...",
-                            "Just a little bit more...",
-                            "Oh, look behind you!"
-                        ]} />
-                    </BlurView>
-                    : null
+                () => populateFinalModal()
             }
-
             <View style={[t.relative, t.wFull, t.h56]}>
                 <Image source={{ uri: competitionImage }} style={[t.hFull, t.wFull, t.roundedLg]} />
                 <View style={[t.absolute, t.w4_5, t.bgGray100, t.mL3, t.opacity50, t.roundedLg, { top: 110, height: 100 }]} />

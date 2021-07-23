@@ -11,6 +11,7 @@ import { useAuth } from "../../context/AuthContext";
 import { getCourseDetails } from "../../database/actions/Course";
 import Loading from "../../components/Loading";
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { deductCurrency } from "../../database/actions/Profile";
 
 
 function CompetitionListScreen({ navigation }) {
@@ -23,12 +24,16 @@ function CompetitionListScreen({ navigation }) {
     const [difficulty, setDifficulty] = useState("");
     const [amount, setAmount] = useState("");
     const [courses, setCourses] = useState([]);
-    const { currentProfile } = useAuth();
+    const { currentProfile, retrieveProfile } = useAuth();
     const difficulties = [
         { label: "Beginner", value: "Beginner" },
         { label: "Intermediate", value: "Intermediate" },
         { label: "Advanced", value: "Advanced" },
     ];
+
+    const hasSufficientCurrency = () => {
+        return currentProfile.currency >= parseInt(amount);
+    }
 
     const getDifficulty = (level) => {
         switch (level) {
@@ -75,7 +80,9 @@ function CompetitionListScreen({ navigation }) {
         const value = parseInt(amount)
         createCompetition(course, user, value, getDifficulty(difficulty))
             .then(response => {
-                joinRoom(response.id, course, user, value, response.quiz);
+                deductCurrency(user.name, currentProfile.currency, value);          // Deduct host currency for creation of room
+                retrieveProfile();                                                   // Manual refresh of profile in context
+                joinRoom(response.id, course, user, value, response.quiz);          // Redirect host to room
             });
     };
 
@@ -102,22 +109,24 @@ function CompetitionListScreen({ navigation }) {
         setDisplayModal(false)
     }
 
-    const confirmButton = () => {
-        // navigate to next screen
-        setCurrentSelected("")
-        setDisplayModal(false)
+    const isHost = (name) => {
+        return currentProfile.name === name;
     }
 
     const joinRoom = (roomID, course, host, amount, quiz) => {
         checkCompetitionAvailability(roomID, currentProfile.name, currentProfile.currency)
             .then(available => {
                 if (available) {
+                    if (!isHost(host.name)) {            // Deducts money from participant as well
+                        deductCurrency(currentProfile.name, currentProfile.currency, amount);
+                    };
+
                     const user = !host ? {              // Check if host is supplied via creation of room
                         name: currentProfile.name,
                         avatar: currentProfile.avatar
                     } : host
-                    const isHost = user.name === currentProfile.name;
-                    joinCompetition(roomID, user, isHost)
+
+                    joinCompetition(roomID, user, isHost(host.name))
                         .then(response => {
                             if (response) {
                                 navigation.push("Competition", {
@@ -199,7 +208,7 @@ function CompetitionListScreen({ navigation }) {
                                     />
                                 </View>
                                 <Text style={styles.title}>Amount placed</Text>
-                                <View style={[{ width: 200 }, t.bgGray100, t.border, t.borderGray300, t.pX6, t.pY3, t.mB8, t.roundedFull]}>
+                                <View style={[{ width: 200 }, t.bgGray100, t.border, t.borderGray300, t.pX6, t.pY3, t.roundedFull]}>
                                     <TextInput
                                         value={amount}
                                         onChangeText={value => setAmount(value)}
@@ -207,7 +216,12 @@ function CompetitionListScreen({ navigation }) {
                                     />
                                 </View>
                                 {
-                                    course && difficulty && amount ?
+                                    !hasSufficientCurrency() && amount
+                                        ? <Text style={[styles.description, t.textXs, t.textRed500, t.mB6]}>You do not have sufficient currency</Text>
+                                        : <View style={[t.mB8]} />
+                                }
+                                {
+                                    course && difficulty && amount && hasSufficientCurrency() ?
                                         <TouchableOpacity onPress={() => submitCreate()} style={[{ backgroundColor: "#FE904B" }, t.pY3, t.pX6, t.roundedLg]}>
                                             <Text style={[{ color: "#FFFFFF" }, t.fontBold]}>Create battle</Text>
                                         </TouchableOpacity>

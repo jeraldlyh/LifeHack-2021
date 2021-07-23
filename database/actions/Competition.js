@@ -105,6 +105,14 @@ export const checkCompetitionAvailability = (docID, username, currency) => {
     });
 };
 
+export const invalidateRoom = (docID) => {
+    firebase.firestore().collection("Competition")
+        .doc(docID)
+        .update({
+            valid: false
+        });
+};
+
 
 export const joinCompetition = (docID, user, isHost) => {
     return new Promise((resolve, reject) => {
