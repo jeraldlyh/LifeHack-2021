@@ -4,25 +4,26 @@ import { t } from "react-native-tailwindcss";
 import { useNavigation } from "@react-navigation/native";
 
 function Options(props) {
-    // const navigation = useNavigation();
+    const navigation = useNavigation();
 
-    // const onPressed = () => {
-    //     const name = props.name;
+    const onPressed = () => {
+        const name = props.name;
 
-    //     if (name === "Courses") {
-    //         navigation.push("Document");
-    //     } else if (name === "Trivia") {
-    //         navigation.push("Trivia");
-    //     } else if (name === "News") {
-    //         navigation.push("News");
-    //     } else if (name === "Community") {
-    //         navigation.push("Community");
-    //     };
-    // };
+        if (name === "Courses") {
+            navigation.push("Courses");
+        // } else if (name === "Trivia") {
+        //     navigation.push("Trivia");
+        // } else if (name === "News") {
+        //     navigation.push("News");
+        // } else if (name === "Community") {
+        //     navigation.push("Community");
+        // };
+    };}
 
     return (
         <TouchableOpacity
             style={[styles.container, t.itemsCenter,t.justifyCenter]}
+            onPress = {()=>onPressed()}
         >   
             { props.name === "Courses" ? <Image source={require("../../../assets/icons/courses.jpg")} style={styles.image} /> : null }
             { props.name === "Forums" ? <Image source={require("../../../assets/icons/forums.jpg")} style={styles.image} /> : null }

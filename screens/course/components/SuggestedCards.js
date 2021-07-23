@@ -2,11 +2,26 @@ import { CardStyleInterpolators } from '@react-navigation/stack'
 import React from 'react'
 import { t } from "react-native-tailwindcss";
 import { StyleSheet, Text, View,Image, TouchableOpacity } from 'react-native'
+import { useNavigation } from '@react-navigation/native';
 
 export default function SuggestedCards(props) {
-    // console.log(eval(props.progress))
+    const navigation = useNavigation();
+    const onPressed = () => {
+        const name = props.name;
+
+        if (name === "Java for Beginners") {
+            navigation.navigate("Java");
+        // } else if (name === "Trivia") {
+        //     navigation.push("Trivia");
+        // } else if (name === "News") {
+        //     navigation.push("News");
+        // } else if (name === "Community") {
+        //     navigation.push("Community");
+        // };
+    };}
+
     return (
-        <View style = {styles.container}>
+        <TouchableOpacity style = {styles.container} onPress = {()=>onPressed()}>
             <View style = {{padding:10,flex:1,alignItems:'center'}}>
                 <Text style ={{fontFamily:'Poppins-SemiBold',fontSize:12,marginBottom:10}}>{props.name}</Text>
                 <Text style ={{fontFamily:'Poppins-Normal',fontSize:10,marginBottom:10}}>{props.progress} topics completed</Text>
@@ -35,7 +50,7 @@ export default function SuggestedCards(props) {
                     source={require("../../../assets/home/oleveleng.jpeg")}style=  {styles.image}
                 />
             ) : null}
-        </View>
+        </TouchableOpacity>
     )
 }
 

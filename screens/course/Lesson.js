@@ -1,13 +1,14 @@
 import React,{useState} from 'react'
-import { View, StyleSheet, Button,Text,Image, ScrollView } from 'react-native';
+import { View, StyleSheet, Button,Text,Image, ScrollView, TouchableOpacity } from 'react-native';
 import { Video, AVPlaybackStatus } from 'expo-av';
 import { Icon } from "react-native-elements";
 import { t } from "react-native-tailwindcss";
 import Tab from './components/Tab';
 import QandACard from './components/QandACard';
+import { useNavigation, useNavigationState } from '@react-navigation/native';
 
 export default function Lesson(props) {
-    
+    const navigation = useNavigation();
     const [active1, setActive1] = useState(true);
     const [active2, setActive2] = useState(false);
     const setOthersInactive = (number) => {
@@ -40,14 +41,14 @@ export default function Lesson(props) {
 
   return (
     <View style={[t.mT5,t.p10,t.itemsCenter]}>
-        <View style = {{alignSelf:'flex-start',borderRadius:20,width:44,height:44,backgroundColor:'#A5A5A5',justifyContent:'center',alignItems:'center'}}>
+        <TouchableOpacity style = {{alignSelf:'flex-start',borderRadius:20,width:44,height:44,backgroundColor:'#A5A5A5',justifyContent:'center',alignItems:'center'}} onPress = {()=>navigation.pop()}>
                     <Icon
                         name='arrow-back-outline'
                         type='ionicon'
                         color='white'
                         size = {30}
                     />
-            </View>
+            </TouchableOpacity>
 
         <Text style = {{fontFamily:'Poppins-Bold',fontSize:18}}>Course Detail</Text>
       <Video

@@ -1,14 +1,24 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react'
+import { Icon } from 'react-native-elements';
 import { StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native'
 import { ScrollView } from "react-native-gesture-handler";
-import tailwind from "tailwind-rn";
 import { t } from "react-native-tailwindcss";
 
-export default function CourseHome(props) {
+export default function JavaCourse(props) {
+    const navigation = useNavigation();
     return (
         <ScrollView contentContainerStyle={[t.itemsCenter,t.wFull,{backgroundColor:'#FCFCFC'}]}>
+            <TouchableOpacity style = {{alignSelf:'flex-start',borderRadius:20,width:44,height:44,backgroundColor:'#A5A5A5',justifyContent:'center',alignItems:'center',marginTop:50,marginLeft:33}} onPress = {()=>navigation.pop()}>
+                    <Icon
+                        name='arrow-back-outline'
+                        type='ionicon'
+                        color='white'
+                        size = {30}
+                    />
+            </TouchableOpacity>
             <View style = {styles.container}>
-                <View style = {{justifyContent: 'center', alignItems: 'center', marginTop: 20}}>
+                <View style = {{justifyContent: 'center', alignItems: 'center'}}>
                     <Text style = {{fontFamily:'Poppins-SemiBold', fontSize:21}}>
                         Course Detail
                     </Text>
@@ -93,7 +103,7 @@ export default function CourseHome(props) {
                     </View>
                 </View>
 
-                <View style={{flexDirection:"row", marginTop: 10, justifyContent: "space-between"}}>
+                <TouchableOpacity style={{flexDirection:"row", marginTop: 10, justifyContent: "space-between"}} onPress = {()=>navigation.navigate("Lesson")}>
                     <View style={{flexDirection:"row"}}>
                         <Text style={styles.lessonNo}>03</Text>
                         <View> 
@@ -104,7 +114,7 @@ export default function CourseHome(props) {
                     <View>
                         <Image source={require("../../assets/course/play.png")} style={styles.profile}/>
                     </View>
-                </View>
+                </TouchableOpacity>
 
                 <View style={{flexDirection:"row", marginTop: 10, justifyContent: "space-between"}}>
                     <View style={{flexDirection:"row"}}>

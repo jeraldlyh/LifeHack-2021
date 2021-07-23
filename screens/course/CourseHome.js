@@ -1,5 +1,6 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Icon } from "react-native-elements";
 import { ScrollView } from 'react-native-gesture-handler'
 import { t } from "react-native-tailwindcss";
@@ -8,16 +9,17 @@ import DayStreak from './components/DayStreak'
 import SuggestedCards from './components/SuggestedCards';
 
 export default function CourseHome(props) {
+    const navigation = useNavigation();
     return (
         <ScrollView style = {styles.container}>
-            <View style = {{alignSelf:'flex-start',borderRadius:20,width:44,height:44,backgroundColor:'#A5A5A5',justifyContent:'center',alignItems:'center',marginBottom:20}}>
+            <TouchableOpacity style = {{alignSelf:'flex-start',borderRadius:20,width:44,height:44,backgroundColor:'#A5A5A5',justifyContent:'center',alignItems:'center',marginBottom:20}} onPress = {()=>navigation.pop()}>
                     <Icon
                         name='arrow-back-outline'
                         type='ionicon'
                         color='white'
                         size = {30}
                     />
-            </View>
+            </TouchableOpacity>
             <DayStreak/>
             <Text style = {{fontFamily:'Poppins-Bold', fontSize:28}}>
             Courses
@@ -61,7 +63,7 @@ export default function CourseHome(props) {
             </Text>
 
             <ScrollView>
-                <SuggestedCards progress = "17/25" color = "#2593B6" name = "Java for Beginners"/>
+                <SuggestedCards progress = "17/25" color = "#2593B6" name = "Java for Beginners" />
                 <SuggestedCards progress = "11/25" color = "#0B14EF" name = "App Development"/>
                 <SuggestedCards progress = "17/25" color = "#037A25" name = "GCE O-Level English"/>
             </ScrollView>
