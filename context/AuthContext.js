@@ -92,7 +92,7 @@ function AuthProvider(props) {
 
     return (
         <AuthContext.Provider value={value}>
-            {!loading && currentProfile && currentUser && props.children}
+            {!loading && props.children}
         </AuthContext.Provider>
     );
 };

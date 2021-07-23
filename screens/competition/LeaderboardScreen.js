@@ -1,57 +1,34 @@
-import React from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import tailwind from "tailwind-rn";
 import { t } from "react-native-tailwindcss";
+import TopThree from './components/TopThree';
 
 export default function LeaderboardScreen(props) {
-    return (
-        <View style={[t.mT3]}>
-            <View style={{ justifyContent: 'center', alignItems: 'center',marginBottom: 25 }}>
-                <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 22 }}>
-                    LEADERBOARDS
-                </Text>
-            </View>
+    const [leaderboards, setLeaderboards] = useState([]);
 
-            <View style={{ flexDirection: "row", justifyContent: "space-between", marginLeft: 50, marginRight: 50 }}>
+    useEffect(() => {
+        effect
+        return () => {
+            cleanup
+        }
+    }, [input])
+
+
+    return (
+        <View style={tailwind("flex flex-col justify-center mt-5 border-2")}>
+            <Text style={[{ fontFamily: 'Poppins-Bold'}, tailwind("mb-2 text-2xl self-center")]}>
+                LEADERBOARDS
+            </Text>
+
+            <View style={tailwind("flex flex-row justify-around")}>
                 <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 16 }}>TODAY</Text>
                 <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 16, color: "#CCCCCC" }}>WEEK</Text>
                 <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 16, color: "#CCCCCC" }}>ALL TIME</Text>
             </View>
             <View style={{ marginTop: 10, borderBottomColor: '#A5A5A5', borderBottomWidth: 1 }} />
 
-            <View style={{ flexDirection: "row", justifyContent: "space-between", marginLeft: 35, marginRight: 35, marginTop: 40 }}>
-                <View style={{ alignItems: "center", justifyContent: "center" }}>
-                    <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16, color: "#2B2B2B", margin: 3 }}>2</Text>
-                    <Image source={require("../../assets/icons/down.png")} style={styles.icon} />
-                    <Image source={require("../../assets/competition/jerald.png")} style={styles.profile2} />
-                    <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 15, marginTop: 5 }}>Jerald Lim</Text>
-                    <View style={{ flexDirection: "row" }}>
-                        <Image source={require("../../assets/icons/coin.png")} style={styles.coin} />
-                        <Text style={{ fontFamily: 'Poppins-Normal', fontSize: 16, color: "#2B2B2B", margin: 3 }}>245</Text>
-                    </View>
-                </View>
-
-                <View style={{ alignItems: "center", justifyContent: "center" }}>
-                    <Image source={require("../../assets/icons/crown.png")} style={styles.icon} />
-                    <Image source={require("../../assets/competition/yvonne.png")} style={styles.profile1} />
-                    <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 15, marginTop: 5 }}>Yvonne Lim</Text>
-                    <View style={{ flexDirection: "row" }}>
-                        <Image source={require("../../assets/icons/coin.png")} style={styles.coin} />
-                        <Text style={{ fontFamily: 'Poppins-Normal', fontSize: 16, color: "#2B2B2B", margin: 3 }}>256</Text>
-                    </View>
-                </View>
-
-                <View style={{ alignItems: "center", justifyContent: "center" }}>
-                    <Image source={require("../../assets/icons/up.png")} style={styles.icon} />
-                    <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16, color: "#2B2B2B", margin: 3 }}>3</Text>
-                    <Image source={require("../../assets/competition/nicholas.png")} style={styles.profile2} />
-                    <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 15, marginTop: 5 }}>Nicholas Ong</Text>
-                    <View style={{ flexDirection: "row" }}>
-                        <Image source={require("../../assets/icons/coin.png")} style={styles.coin} />
-                        <Text style={{ fontFamily: 'Poppins-Normal', fontSize: 16, color: "#2B2B2B", margin: 3 }}>236</Text>
-                    </View>
-                </View>
-            </View>
+            <TopThree />
 
             <View style={{ flexDirection: "row", justifyContent: "space-between", marginLeft: 30, marginRight: 30, marginTop: 20 }}>
                 <View style={{ marginTop: 15 }}>
