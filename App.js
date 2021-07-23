@@ -9,6 +9,7 @@ import HomeStack from './screens/home/HomeStack';
 import CourseOptions from './screens/home/components/CourseOptions';
 import HomeScreen from './screens/home/HomeScreen';
 import CourseHome from './screens/course/CourseHome';
+import Lesson from './screens/course/Lesson';
 
 LogBox.ignoreAllLogs();
 
@@ -40,7 +41,7 @@ export default function App() {
                 // <NavigationContainer>
                 //     <HomeStack/>
                 // </NavigationContainer>
-                <CourseHome/>
+                <Lesson/>
                 
             )
             : (

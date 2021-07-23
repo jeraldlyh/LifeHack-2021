@@ -35,7 +35,8 @@
     "react-native-tailwindcss": "^1.1.11",
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "~0.13.12",
-    "uuid": "^3.4.0"
+    "uuid": "^3.4.0",
+    "expo-av": "~9.2.3"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"
