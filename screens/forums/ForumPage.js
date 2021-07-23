@@ -9,10 +9,10 @@ export default function ForumPage() {
     const navigation = useNavigation();
     return (
         <ScrollView>
-            <Image source = {require("../../assets/forum/olevel.png") } style = {{width:'110%',height:322,alignSelf:'center',position:'absolute'}}/>
-            <View style={[t.selfStart,t.mL6,t.mR6,t.z10,{top:50}]}>
+            <Image source = {require("../../assets/forum/olevel.png") } style = {{width:'110%',alignSelf:'center',position:'absolute'}}/>
+            <View style={[t.selfStart,t.mL6,t.mR6,t.z10,{top:50},]}>
                 <TouchableOpacity
-                    style={[t.bgGray300,t.mT1,t.w14,t.h14,t.roundedFull,t.absolute,t.opacity50,t.itemsCenter,t.flex,t.justifyCenter]}
+                    style={[t.bgGray300,t.mT1,t.w12,t.h12,t.roundedFull,t.absolute,t.opacity50,t.itemsCenter,t.flex,t.justifyCenter]}
                     onPress={() => navigation.goBack()}
                 >
                     <Icon
@@ -22,12 +22,12 @@ export default function ForumPage() {
                     />
                 </TouchableOpacity>
                 <View style = {[t.mT12,{width:220}]}>
-                    <Text style = {{fontSize:18,fontFamily:'Poppins-Bold',color:'white'}}>
+                    <Text style = {{fontSize:18,fontFamily:'Poppins-Bold',color:'white', marginTop: 15}}>
                     GCE  O-Level Examinations
                     </Text>
                 </View>
                 <View style = {[t.flexRow,t.wFull,t.justifyBetween,t.mT5]}>
-                    <View style = {[{borderRadius:14}]}>
+                    <View style = {[{borderRadius:14, marginBottom: 10}]}>
                         <Text style = {{color:'white'}}>5.5k members</Text>
                     </View>
                     {/* <View>
@@ -36,15 +36,12 @@ export default function ForumPage() {
                 </View>
                 
             </View>
-            <View style = {[{width:'100%',backgroundColor:'white',borderRadius:24,marginTop:55}]}>
-                <View style = {{height:30}}/>
-
-
+            <View style = {[{width:'100%',backgroundColor:'white',borderRadius:26,marginTop:55}]}>
+                <View style = {{height:35}}/>
                     <Thread header ="Chinese Listening Comprehension 2021 experiences" upvote = "521" comment = "44"/>
                     <Thread header ="How to perform during examinations, overcome mental blocks" upvote = "322" comment = "71"/>
                     <Thread header ="Free resources for Mathematics and English practices" upvote = "265" comment = "32"/>
                     <Thread header ="Private tuition recommendations for Chinese" upvote = "109" comment = "22"/>
-
             </View>
         </ScrollView>
     )

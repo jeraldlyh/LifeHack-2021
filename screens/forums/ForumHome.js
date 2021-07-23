@@ -59,7 +59,7 @@ export default function ForumHome() {
             <Image source = {require("../../assets/forum/psleheader.png")} style = {styles.image}/>
             <View style={[t.selfStart,t.mL6,t.mR6,t.z10,{top:50}]}>
                 <TouchableOpacity
-                    style={[t.bgGray300,t.mT1,t.w14,t.h14,t.roundedFull,t.absolute,t.opacity50,t.itemsCenter,t.flex,t.justifyCenter, t.absolute]}
+                    style={[t.bgGray300,t.mT1,t.w12,t.h12,t.roundedFull,t.absolute,t.opacity50,t.itemsCenter,t.flex,t.justifyCenter]}
                     onPress={() => navigation.goBack()}
                 >
                     <Icon
@@ -69,12 +69,12 @@ export default function ForumHome() {
                     />
                 </TouchableOpacity>
                 <View style = {[t.mT12,{width:220}]}>
-                    <Text style = {{fontSize:18,fontFamily:'Poppins-Bold',color:'white'}}>
+                    <Text style = {{fontSize:18,fontFamily:'Poppins-Bold',color:'white', marginTop: 15}}>
                     Primary School Leaving Examination (PSLE)
                     </Text>
                 </View>
                 <View style = {[t.flexRow,t.wFull,t.justifyBetween,t.mT5]}>
-                    <View style = {[{borderRadius:14}]}>
+                    <View style = {[{borderRadius:14, marginBottom: 15}]}>
                         <Text style = {{color:'white'}}>5.5k members</Text>
                     </View>
                     <View>
@@ -114,11 +114,11 @@ export default function ForumHome() {
                     />
                    
                 </ScrollView>
-                <Searchbar style = {[t.mT5,t.mB5]}/>
+                <Searchbar style = {[t.mT8,t.mB8]}/>
                 <TouchableOpacity onPress ={()=>console.log("hello")}>
                     <Forum header = {"GCE O-Level Examination"}  members = {"5k"} description = "Forum to post about your O-Levels knowledge, tips and resources" image = {"olevels"} name = "Forums"/>
                 </TouchableOpacity>
-                <Forum header = {"Mobile App Developers"} members = {"1.1k"} description = "Forum for mobile app developers to exchange tips and tricks" image = {"mobiledev"}/>
+                <Forum header = {"Scholastic Aptitude Test (SAT)"} members = {"1.1k"} description = "Forum to share your SAT exam experiences, tips and resources" image = {"mobiledev"}/>
                 <Forum header = {"GCE O-Level Examination"} members = {"5k"} description = "Forum to post about your O-Levels knowledge, tips and resources" image = {"olevels"}/>
                 <Forum header = {"Mobile App Developers"} members = {"1.1k"} description = "Forum for mobile app developers to exchange tips and tricks" image = {"mobiledev"}/>
 
