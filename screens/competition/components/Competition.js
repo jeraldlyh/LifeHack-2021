@@ -5,7 +5,6 @@ import _ from "lodash"
 import { getCourseImage } from "../../../database/actions/Course";
 import Loading from "../../../components/Loading";
 import tailwind from "tailwind-rn";
-import { Fragment } from "react-is";
 
 const ACCENTS = ["#2D99B9", "#7C82A0", "#009633", "#D291BC", "#FFDFD3"]
 
@@ -40,7 +39,7 @@ function Competition(props) {
     return (
         <View style={styles.container}>
             <Image source={{ uri: courseImage }} style={styles.image} />
-            <View style={[t.wFull, tailwind("flex flex-col justify-center"),{ width: 200, marginLeft: 25, marginRight: 20 }]}>
+            <View style={[tailwind("flex flex-col justify-center"), { width: 200, marginLeft: 25, marginRight: 20 }]}>
                 <Text style={{ fontFamily: "Poppins-SemiBold", fontSize: 16 }}>{props.course}</Text>
                 <View style={tailwind("flex flex-row justify-between mb-2")}>
                     <Text style={{ fontFamily: "Poppins-Normal", fontSize: 13, color: "#8888aa" }}>1v1 Battle</Text>
@@ -57,23 +56,24 @@ function Competition(props) {
                             <Text style={[t.textXs], { color: "#8888aa" }}>Student</Text>
                         </View>
                     </View>
+                    <View style={{ backgroundColor: 'black', width: 1, height: "100%" }} />
                     {
                         props.player.name
-                            ? <Fragment>
-                                <View style={{
-                                    backgroundColor: 'black',
-                                    width: 1,
-                                    height: "100%"
-                                }} />
-                                <View style={[t.flex, t.flexRow, t.itemsCenter]}>
-                                    <Image source={{ uri: props.player.avatar }} style={styles.avatar} />
-                                    <View style={[t.mL2]}>
-                                        <Text style={[t.textSm, t.fontSemibold]}>{props.player.name}</Text>
-                                        <Text style={[t.textXs], { color: "#8888aa" }}>Student</Text>
-                                    </View>
+                            ?
+                            <View style={[t.flex, t.flexRow, t.itemsCenter]}>
+                                <Image source={{ uri: props.player.avatar }} style={styles.avatar} />
+                                <View style={[t.mL2]}>
+                                    <Text style={[t.textSm, t.fontSemibold]}>{props.player.name}</Text>
+                                    <Text style={[t.textXs], { color: "#8888aa" }}>Student</Text>
                                 </View>
-                            </Fragment>
-                            : null
+                            </View>
+                            : <View style={[t.flex, t.flexRow, t.itemsCenter]}>
+                                <View style={[styles.avatar, t.bgGray300]} />
+                                <View style={[tailwind("flex flex-col ml-2 items-center justify-center")]}>
+                                    <View style={[t.bgGray300, tailwind("w-10 h-2")]} />
+                                    <View style={[t.bgGray300, tailwind("w-10 h-2 mt-1")]} />
+                                </View>
+                            </View>
                     }
 
                 </View>
@@ -94,8 +94,9 @@ const styles = StyleSheet.create({
     container: {
         width: "100%",
         height: 180,
+        display: "flex",
         flexDirection: "row",
-        marginBottom: 10,
+        marginBottom: 20,
         alignItems: "center",
         borderRadius: 14,
         backgroundColor: "white",
@@ -105,7 +106,7 @@ const styles = StyleSheet.create({
         shadowRadius: 3,
     },
     image: {
-        width: 125,
+        width: 105,
         height: 180,
         borderRadius: 14
     },

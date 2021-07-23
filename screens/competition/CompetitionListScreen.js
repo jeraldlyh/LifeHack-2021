@@ -32,6 +32,7 @@ function CompetitionListScreen({ navigation }) {
         { label: "Advanced", value: "Advanced" },
     ];
 
+
     const hasSufficientCurrency = () => {
         return currentProfile.currency >= parseInt(amount);
     }
@@ -173,7 +174,7 @@ function CompetitionListScreen({ navigation }) {
     };
 
     return (
-        <SafeAreaView style={[t.flex, t.hFull, t.wFull, t.justifyCenter, t.itemsCenter]}>
+        <SafeAreaView style={[t.flex, t.hFull, t.wFull, t.justifyCenter, t.itemsCenter, t.mT3]}>
             {
                 displayModal
                     ? <BlurView intensity={95} style={[t.itemCenter, t.justifyCenter, { height: "100%", position: "absolute", width: "100%", zIndex: 100 }]}>
@@ -267,7 +268,6 @@ function CompetitionListScreen({ navigation }) {
             }
         </SafeAreaView>
     )
-
 };
 
 const styles = StyleSheet.create({
