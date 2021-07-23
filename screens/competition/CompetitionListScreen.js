@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { Text, View, StyleSheet, TouchableOpacity, FlatList } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, FlatList, SafeAreaView } from "react-native";
 import { t } from "react-native-tailwindcss";
 import firebase from "../../database/firebaseDB";
 import { Divider } from "react-native-elements";
@@ -7,6 +7,7 @@ import Button from "../../components/Button";
 import { BlurView } from "expo-blur";
 import _ from "lodash";
 import { createCompetition } from "../../database/actions/Competition";
+import Competition from "./components/Competition";
 
 function CompetitionListScreen() {
     const [competitions, setCompetitions] = useState([])
@@ -54,7 +55,7 @@ function CompetitionListScreen() {
     }
 
     return (
-        <View style={[t.flex, t.hFull, t.wFull, t.justifyCenter, t.itemsCenter]}>
+        <SafeAreaView style={[t.flex, t.hFull, t.wFull, t.justifyCenter, t.itemsCenter]}>
             {
                 displayModal
                     ? <BlurView intensity={95} style={[t.itemCenter, t.justifyCenter, { height: "100%", position: "absolute", width: "100%", zIndex: 100 }]}>
@@ -90,7 +91,13 @@ function CompetitionListScreen() {
                     </BlurView>
                     : null
             }
-            {
+            <TouchableOpacity style={styles.button} onPress={() => startCompetition()}>
+                <Text style={{fontFamily: "Poppins-SemiBold", color:"#888888", fontSize: 16}}>+ Create new battle</Text>
+            </TouchableOpacity>
+            <Competition name="Java for Beginners" creator="Nicholas Ong" />
+            <Competition name="Nuclear Physics" creator="Yvonne Lim" />
+            <Competition name="GCE O-Level English" creator="Jerald Lim" />
+            {/* {
                 competitions && competitions.length !== 0
                     ?
                     competitions.map(competition => {
@@ -109,10 +116,9 @@ function CompetitionListScreen() {
                     })
                     : <View style={[t.flex, t.justifyCenter, t.itemsCenter, t.hFull]}>
                         <Text>No competitions ongoing now!</Text>
-                        <Button onPress={() => startCompetition()} text="Create" backgroundColor="#FE904B" textColor="#FFF" height={t.h12} />
                     </View>
-            }
-        </View>
+            } */}
+        </SafeAreaView>
     )
 
 };
@@ -123,6 +129,21 @@ const styles = StyleSheet.create({
     },
     description: {
         fontFamily: "Poppins-Normal",
+    },
+    button: {
+        width: '85%',
+        paddingVertical: 13,
+        flexDirection: 'row',
+        marginBottom: 30,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 10,
+        backgroundColor: 'white',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+        fontSize: 20
     },
 });
 

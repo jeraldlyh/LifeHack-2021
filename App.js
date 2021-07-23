@@ -5,7 +5,7 @@ import { LogBox } from "react-native";
 import * as Font from "expo-font";
 import RootStack from './screens/RootStack';
 import Loading from './components/Loading';
-import HomeStack from './screens/home/HomeStack';
+import CompetitionStack from './screens/competition/CompetitionStack';
 import CourseOptions from './screens/home/components/CourseOptions';
 import HomeScreen from './screens/home/HomeScreen';
 import CourseHome from './screens/course/CourseHome';
@@ -32,15 +32,14 @@ export default function App() {
     return (
         isLoaded
             ? (
-                // <AuthProvider>
-                //     <NavigationContainer>
-                //         <RootStack />
-                //     </NavigationContainer>
-                // </AuthProvider>
+                <AuthProvider>
+                    <NavigationContainer>
+                        <RootStack />
+                    </NavigationContainer>
+                </AuthProvider>
                 // <NavigationContainer>
-                //     <HomeStack/>
+                //     <CompetitionStack/>
                 // </NavigationContainer>
-                <CourseHome/>
                 
             )
             : (
