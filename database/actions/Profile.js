@@ -38,3 +38,16 @@ export const increaseGamePlayed = (username) => {
             gamesPlayed: firebase.firestore.FieldValue.increment(1)
         });
 };
+
+export const getAllProfiles = () => {
+    return new Promise((resolve, reject) => {
+        firebase.firestore().collection("User")
+            .orderBy("currency", "desc")
+            .limit(6)
+            .get()
+            .then(querySnapshot => {
+                const data = querySnapshot.docs.map(doc => _.merge(doc.data(), { name: doc.id }))
+                resolve(data)
+            })
+    })
+}

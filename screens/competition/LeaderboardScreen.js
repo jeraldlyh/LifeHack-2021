@@ -1,23 +1,45 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import tailwind from "tailwind-rn";
-import { t } from "react-native-tailwindcss";
 import TopThree from './components/TopThree';
+import { getAllProfiles } from '../../database/actions/Profile';
+import _ from "lodash";
+import Loading from '../../components/Loading';
+
 
 export default function LeaderboardScreen(props) {
     const [leaderboards, setLeaderboards] = useState([]);
+    const [topThree, setTopThree] = useState([]);
 
-    // useEffect(() => {
-    //     effect
-    //     return () => {
-    //         cleanup
-    //     }
-    // }, [input])
+    useEffect(() => {
+        getAllProfiles().then(response => {
+            setLeaderboards(response);
+            getTopThree(response);
+        });
+    }, []);
 
+    const getTopThree = (data) => {
+        const topThree = _.sortBy(data, function (o) {
+            return o.currency;
+        });
+
+        const updatedTopThree = _.map(topThree, function (o) {
+            return {
+                name: o.name,
+                currency: o.currency,
+                avatar: o.avatar,
+            };
+        });
+        setTopThree(updatedTopThree);
+    }
+
+    if (!leaderboards) {
+        return (<Loading />)
+    }
 
     return (
-        <View style={tailwind("flex flex-col justify-center mt-5 border-2")}>
-            <Text style={[{ fontFamily: 'Poppins-Bold'}, tailwind("mb-2 text-2xl self-center")]}>
+        <View style={tailwind("flex flex-col justify-center mt-5")}>
+            <Text style={[{ fontFamily: 'Poppins-Bold' }, tailwind("mb-2 text-2xl self-center")]}>
                 LEADERBOARDS
             </Text>
 
@@ -28,7 +50,11 @@ export default function LeaderboardScreen(props) {
             </View>
             <View style={{ marginTop: 10, borderBottomColor: '#A5A5A5', borderBottomWidth: 1 }} />
 
-            {/* <TopThree /> */}
+            {
+                topThree && topThree.length !== 0
+                    ? <TopThree data={topThree} />
+                    : null
+            }
 
             <View style={{ flexDirection: "row", justifyContent: "space-between", marginLeft: 30, marginRight: 30, marginTop: 20 }}>
                 <View style={{ marginTop: 15 }}>
