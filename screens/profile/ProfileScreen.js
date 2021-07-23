@@ -3,20 +3,14 @@ import { SafeAreaView, View, Text, Image, StyleSheet, TouchableOpacity, ScrollVi
 import moment from "moment";
 import { Icon } from "react-native-elements";
 import { t } from "react-native-tailwindcss";
+import { useAuth } from "../../context/AuthContext";
 
 function ProfileScreen({ navigation }) {
-    // const { username } = useContext(AuthContext);
-    // const [profile, setProfile] = useState(null);
+    const { currentProfile } = useAuth();
 
-    // useEffect(() => {
-    //     getUserProfile(username).then(response => {
-    //         setProfile(response);
-    //     });
-    // }, []);
-
-    // const formatJoinedDate = (date) => {
-    //     return moment(date).fromNow();
-    // };
+    const formatJoinedDate = (date) => {
+        return moment(date).fromNow();
+    };
 
     return (
         <SafeAreaView>
@@ -41,7 +35,7 @@ function ProfileScreen({ navigation }) {
                     <Image source={require("../../assets/competition/nicholas.png")}
                         style={[styles.image, t.mT6]} />
 
-                    <Text style={[t.mT4, styles.header]}>John Doe</Text>
+                    <Text style={[t.mT4, styles.header]}>{currentProfile.name}</Text>
 
                     <View style={[t.mT1, { flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }]}>
                         <Image
@@ -49,8 +43,7 @@ function ProfileScreen({ navigation }) {
                         />
 
                         <Text style={[t.mL2, styles.subText]}>
-                            Joined 2 days ago
-                            {/* {formatJoinedDate(profile.registeredAt)} */}
+                            Joined {formatJoinedDate(currentProfile.registeredAt)}
                         </Text>
                     </View>
 
@@ -61,7 +54,7 @@ function ProfileScreen({ navigation }) {
                             color="#a1a1a1"
                         />
 
-                        <Text style={[t.mL2, t.mR1, styles.subText]}>7 battles played | 250</Text>
+                        <Text style={[t.mL2, t.mR1, styles.subText]}>{currentProfile.gamesPlayed} battles played | {currentProfile.currency}</Text>
                         <Image source={require("../../assets/icons/coin.png")}
                             style={[styles.currency]} />
                     </View>
@@ -79,7 +72,7 @@ function ProfileScreen({ navigation }) {
                     <Text style={[t.mT7, styles.subHeader]}>Bio</Text>
                     <View style={styles.container}>
                         <Text style={[t.mL2, styles.normalText]}>
-                            Sample Bio
+                            {currentProfile.bio}
                         </Text>
                     </View>
                 </View>
@@ -88,18 +81,17 @@ function ProfileScreen({ navigation }) {
                     <Text style={[styles.subHeader]}>Interests</Text>
                     <View style={styles.container}>
                         <View style={[t.flex, t.flexRow, t.flexWrap]}>
-                            <Text style={styles.normalText}>You currently do not have any interests!</Text>
-                            {/* {
-                                        profile.interests.length !== 0
-                                            ? profile.interests.map((interest, key) => {
-                                                return (
-                                                    <View key={key} style={styles.interestsContainer}>
-                                                        <Text style={styles.normalText}>{interest}</Text>
-                                                    </View>
-                                                )
-                                            })
-                                            : <Text style={styles.normalText}>You currently do not have any interests!</Text>
-                                    } */}
+                            {
+                                currentProfile.interests && currentProfile.interests.length !== 0
+                                    ? currentProfile.interests.map((interest, key) => {
+                                        return (
+                                            <View key={key} style={styles.interestsContainer}>
+                                                <Text style={styles.normalText}>{interest}</Text>
+                                            </View>
+                                        )
+                                    })
+                                    : <Text style={styles.normalText}>You currently do not have any interests!</Text>
+                            }
                         </View>
                     </View>
                 </View>
