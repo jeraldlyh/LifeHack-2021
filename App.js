@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import AuthProvider from './provider/AuthProvider';
+import AuthProvider from './context/AuthContext';
 import { NavigationContainer } from '@react-navigation/native';
 import { LogBox } from "react-native";
 import * as Font from "expo-font";
@@ -9,7 +9,6 @@ import Loading from './components/Loading';
 LogBox.ignoreAllLogs();
 
 export default function App() {
-
     const [isLoaded, setIsLoaded] = useState(false);
 
     const loadFonts = async () => {

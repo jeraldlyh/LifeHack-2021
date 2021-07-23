@@ -1,7 +1,7 @@
 import React, { useState, createContext, useContext } from "react";
 
 export const AuthContext = createContext();
-export const useAuth = useContext(AuthContext);
+export const useAuth = () => useContext(AuthContext);
 
 function AuthProvider(props) {
     const [isLoggedIn, setIsLoggedIn] = useState("");
