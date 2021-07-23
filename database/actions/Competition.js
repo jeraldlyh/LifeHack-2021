@@ -13,64 +13,149 @@ export const getRandomQuizFromCourseByDifficulty = (course, difficulty) => {
                 resolve(_.sample(quizzes))
             })
             .catch(error => console.log("Error in getRandomQuiz", error))
-    })
-}
+    });
+};
+
+export const updateAnswer = (docID, answer, isHost) => {
+    if (isHost) {
+        firebase.firestore().collection("Competition")
+            .doc(docID)
+            .update({
+                "host.isCorrect": answer,
+                "host.submitted": true,
+            })
+    } else {
+        firebase.firestore().collection("Competition")
+            .doc(docID)
+            .update({
+                "player.isCorrect": answer,
+                "player.submitted": true,
+            });
+    };
+};
 
 export const createCompetition = async (course, user, amount, difficulty) => {
     const quiz = await getRandomQuizFromCourseByDifficulty(course, difficulty);
 
-    firebase.firestore().collection("Competition")
-        .add({
-            host: {
-                name: user.name,
-                avatar: user.avatar
-            },
-            player: {
-                name: "",
-                avatar: "",
-            },
-            quiz: quiz,
-            valid: true,
-            started: false,
-            amount: amount,
-            course: course,
-            hostSubmitted: false,
-            playerSubmitted: false,
-        })
-        .catch(error => console.log(error))
-};
-
-export const isAbleToJoin = (user) => {
     return new Promise((resolve, reject) => {
         firebase.firestore().collection("Competition")
-            .where("valid", "==", "true")
-            .where("playerOne", "==", user)
+            .add({
+                host: {
+                    name: user.name,
+                    avatar: user.avatar,
+                    entered: false,
+                    isCorrect: false,
+                    submitted: false,
+                },
+                player: {
+                    name: "",
+                    avatar: "",
+                    entered: false,
+                    isCorrect: false,
+                    submitted: false,
+                },
+                quiz: quiz,
+                valid: true,
+                started: false,
+                amount: amount,
+                course: course,
+            })
+            .then(doc => resolve({ id: doc.id, quiz: quiz }))
+            .catch(error => console.log(error))
+    })
+};
+
+export const isAbleToJoin = (user, docID) => {
+    return new Promise((resolve, reject) => {
+        firebase.firestore().collection("Competition")
+            .doc(docID)
             .get()
-            .then(querySnapshot => {
-                if (querySnapshot.size !== 0) {
-                    resolve(false)
+            .then(doc => {
+                const data = doc.data();
+                if (data.host.name === user) {          // Host
+                    resolve(true);
+                } else if (!data.player.entered) {      // Another player has yet to join
+                    resolve(true);
                 } else {
-                    resolve(true)
-                };
+                    resolve(false);
+                }
             });
     });
 };
 
-export const joinCompetition = (docID, user) => {
+export const checkCompetitionAvailability = (docID, username, currency) => {
     return new Promise((resolve, reject) => {
-        isAbleToJoin(user).then(able => {
+        firebase.firestore().collection("Competition")
+            .doc(docID)
+            .get()
+            .then(doc => {
+                const competition = doc.data();
+                if (currency < competition.amount) {            // Insufficient currency to participate
+                    resolve(false);
+                } else if (username !== competition.host.name) {
+                    if (competition.host.entered) {             // If host is already waiting for players
+                        resolve(true);
+                    } else if (competition.player.entered) {    // If there's another player waiting, but host is not around
+                        resolve(false);
+                    };
+                } else {                // Permit host to join
+                    resolve(true);
+                }
+            });
+    });
+};
+
+
+export const joinCompetition = (docID, user, isHost) => {
+    return new Promise((resolve, reject) => {
+        isAbleToJoin(user.name, docID).then(able => {
             if (able) {
-                firebase.firestore().collection("Competition")
-                    .doc(docID)
-                    .update({
-                        player: user,
-                        started: true
-                    })
-                    .then(() => {
-                        resolve(true)
-                    })
-                    .catch(error => console.log("Error in joinCompetition"))
+                if (isHost) {
+                    firebase.firestore().collection("Competition")
+                        .doc(docID)
+                        .update({
+                            "host.name": user.name,
+                            "host.avatar": user.avatar,
+                            "host.entered": true,
+                        })
+                        .then(() => resolve(true))
+                        .catch(error => console.log("Error in joinCompetition", error))
+                } else {
+                    firebase.firestore().collection("Competition")
+                        .doc(docID)
+                        .update({
+                            "player.name": user.name,
+                            "player.avatar": user.avatar,
+                            "player.entered": true,
+                        })
+                        .then(() => resolve(true))
+                        .catch(error => console.log("Error in joinCompetition", error))
+                }
             };
         });
+    });
+};
+
+export const leaveCompetition = (docID, isHost) => {
+    return new Promise((resolve, reject) => {
+        if (isHost) {
+            firebase.firestore().collection("Competition")
+                .doc(docID)
+                .update({
+                    "host.entered": false,
+                })
+                .then(() => resolve(true))
+                .catch(error => console.log("Error in leaveCompetition", error))
+        } else {
+            firebase.firestore().collection("Competition")
+                .doc(docID)
+                .update({
+                    "player.name": "",
+                    "player.avatar": "",
+                    "player.entered": false,
+                })
+                .then(() => resolve(true))
+                .catch(error => console.log("Error in leaveCompetition", error))
+        }
     });
 };

@@ -1,13 +1,17 @@
-import React, { Fragment, useEffect, useState } from "react";
-import { TextInput, Text, View, StyleSheet, TouchableOpacity, FlatList, SafeAreaView } from "react-native";
+import React, { useEffect, useState } from "react";
+import { TextInput, Text, View, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, Keyboard, SafeAreaView } from "react-native";
 import { t } from "react-native-tailwindcss";
 import firebase from "../../database/firebaseDB";
 import { BlurView } from "expo-blur";
 import _ from "lodash";
-import { createCompetition } from "../../database/actions/Competition";
+import { checkCompetitionAvailability, createCompetition, joinCompetition } from "../../database/actions/Competition";
 import Competition from "./components/Competition";
-import RNPickerSelect from 'react-native-picker-select';
+import RNPickerSelect from "react-native-picker-select";
 import { useAuth } from "../../context/AuthContext";
+import { getCourseDetails } from "../../database/actions/Course";
+import Loading from "../../components/Loading";
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 
 function CompetitionListScreen({ navigation }) {
     const [competitions, setCompetitions] = useState([])
@@ -17,31 +21,66 @@ function CompetitionListScreen({ navigation }) {
     const [currentSelected, setCurrentSelected] = useState("")
     const [course, setCourse] = useState("");
     const [difficulty, setDifficulty] = useState("");
-    const [amount, setAmount] = useState(0);
-
-    const courses = [
-        { label: 'Course 1', value: 'course1' },
-        { label: 'Course 2', value: 'course2' },
-        { label: 'Course 3', value: 'course3' },
-    ];
-
+    const [amount, setAmount] = useState("");
+    const [courses, setCourses] = useState([]);
+    const { currentProfile } = useAuth();
     const difficulties = [
-        { label: 'Beginner', value: 'beginner' },
-        { label: 'Intermediate', value: 'intermediate' },
-        { label: 'Advanced', value: 'advanced' },
+        { label: "Beginner", value: "Beginner" },
+        { label: "Intermediate", value: "Intermediate" },
+        { label: "Advanced", value: "Advanced" },
     ];
-    const { currentProfile } = useAuth()
+
+    const getDifficulty = (level) => {
+        switch (level) {
+            case "Beginner":
+                return 1;
+            case "Intermediate":
+                return 2;
+            case "Advanced":
+                return 3;
+            default:
+                break;
+        };
+    }
+
+    const resetLabels = () => {
+        setDifficulty("");
+        setAmount("");
+        setCourse("");
+    };
+
+    const getCourses = async () => {
+        const courseDetails = await getCourseDetails();
+        const tempCourses = _.map(courseDetails, function (o) {
+            return {
+                label: o.name,
+                value: o.name,
+            };
+        });
+
+        setCourses(tempCourses);
+    };
+
+    const submitCreate = () => {
+        startCompetition();
+        setDisplayCreateModal(false);
+        resetLabels();
+    }
 
     const startCompetition = () => {
-        console.log(currentProfile)
         const user = {
             name: currentProfile.name,
             avatar: currentProfile.avatar
-        }
-        createCompetition("App Development", user, 1000, 1)
-    }
+        };
+        const value = parseInt(amount)
+        createCompetition(course, user, value, getDifficulty(difficulty))
+            .then(response => {
+                joinRoom(response.id, course, user, value, response.quiz);
+            });
+    };
 
     useEffect(() => {
+        getCourses();
         const unsubscribe = firebase.firestore().collection("Competition")
             .where("valid", "==", true)
             .onSnapshot(collection => {
@@ -69,11 +108,35 @@ function CompetitionListScreen({ navigation }) {
         setDisplayModal(false)
     }
 
-    const joinRoom = (roomHost) => {
-        // if (roomHost) {
-        //     return setDisplayErrorModal(true)
-        // }
-        return setDisplayModal(true)
+    const joinRoom = (roomID, course, host, amount, quiz) => {
+        checkCompetitionAvailability(roomID, currentProfile.name, currentProfile.currency)
+            .then(available => {
+                if (available) {
+                    const user = !host ? {              // Check if host is supplied via creation of room
+                        name: currentProfile.name,
+                        avatar: currentProfile.avatar
+                    } : host
+                    const isHost = user.name === currentProfile.name;
+                    joinCompetition(roomID, user, isHost)
+                        .then(response => {
+                            if (response) {
+                                navigation.push("Competition", {
+                                    id: roomID,
+                                    title: course,
+                                    host: host,
+                                    currency: amount,
+                                    quiz: quiz,
+                                });
+                            }
+                        })
+                } else {
+                    setDisplayModal(true);
+                };
+            })
+    };
+
+    if (!difficulties && !courses) {
+        return <Loading />
     }
 
     return (
@@ -103,7 +166,7 @@ function CompetitionListScreen({ navigation }) {
                     ? <BlurView intensity={95} style={[t.itemCenter, t.justifyCenter, { height: "100%", position: "absolute", width: "100%", zIndex: 100 }]}>
                         <View style={[t.flex, t.flexCol, t.bgWhite, t.justifyCenter, t.itemsCenter]}>
                             <Text style={styles.title}>Error</Text>
-                            <Text style={[styles.description, t.flex, t.flexWrap]}>You're either the host of the room or you do not have sufficient currency to participate!</Text>
+                            <Text style={[styles.description, t.flex, t.flexWrap]}>There might be someone else waiting for the host or you do not have sufficient currency to participate! 😥</Text>
                             <TouchableOpacity
                                 onPress={() => setDisplayErrorModal(false)}
                             >
@@ -116,41 +179,45 @@ function CompetitionListScreen({ navigation }) {
             {
                 displayCreateModal
                     ? <BlurView intensity={95} style={[t.bgGray800, t.itemsCenter, t.justifyCenter, { height: "100%", position: "absolute", width: "100%", zIndex: 100 }]}>
-                        <View style={[{ width: 300, height: 440 }, t.roundedLg, t.flex, t.flexCol, t.bgWhite, t.justifyCenter, t.itemsCenter]}>
-                            <Text style={styles.title}>Course</Text>
-                            <View style={[{width:200}, t.bgGray100, t.border, t.borderGray300, t.pX6, t.pY3, t.mB8, t.roundedFull]}>
-                                <RNPickerSelect
-                                    onValueChange={(value) => setCourse(value)}
-                                    items={courses}
-                                />
-                            </View>
-                            <Text style={styles.title}>Diffculty</Text>
-                            <View style={[{width:200}, t.bgGray100, t.border, t.borderGray300, t.pX6, t.pY3, t.mB8, t.roundedFull]}>
-                                <RNPickerSelect
-                                    onValueChange={(value) => setDifficulty(value)}
-                                    items={difficulties}
-                                />
-                            </View>
-                            <Text style={styles.title}>Amount placed</Text>
-                            <View style={[{width:200}, t.bgGray100, t.border, t.borderGray300, t.pX6, t.pY3, t.mB8, t.roundedFull]}>
-                                <TextInput
-                                    value={amount}
-                                    onChangeText={value => setAmount(value)}
-                                    keyboardType="number-pad"
-                                    editable
-                                />
-                            </View>
-                            {
-                                course && difficulty && amount && amount !== 0 ?
-                                <TouchableOpacity onPress={() => setDisplayCreateModal(false)} style={[{backgroundColor:"#FE904B"}, t.pY3, t.pX6, t.roundedLg]}>
-                                    <Text style={[{color:"#FFFFFF"}, t.fontBold]}>Create battle</Text>
+                        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+                            <View style={[{ width: 300, height: 440 }, t.roundedLg, t.flex, t.flexCol, t.bgWhite, t.justifyCenter, t.itemsCenter]}>
+                                <TouchableOpacity style={[t.selfEnd, t.mR4]} onPress={() => setDisplayCreateModal(false)}>
+                                    <Ionicons name="close-circle-outline" size={25} />
                                 </TouchableOpacity>
-                                :
-                                <View style={[{opacity: 0.5, backgroundColor:"#FE904B"}, t.pY3, t.pX6, t.roundedLg]}>
-                                    <Text style={[{color:"#FFFFFF"}, t.fontBold]}>Create battle</Text>
+                                <Text style={styles.title}>Course</Text>
+                                <View style={[{ width: 200 }, t.bgGray100, t.border, t.borderGray300, t.pX6, t.pY3, t.mB8, t.roundedFull]}>
+                                    <RNPickerSelect
+                                        onValueChange={(value) => setCourse(value)}
+                                        items={courses}
+                                    />
                                 </View>
-                            }
-                        </View>
+                                <Text style={styles.title}>Diffculty</Text>
+                                <View style={[{ width: 200 }, t.bgGray100, t.border, t.borderGray300, t.pX6, t.pY3, t.mB8, t.roundedFull]}>
+                                    <RNPickerSelect
+                                        onValueChange={(value) => setDifficulty(value)}
+                                        items={difficulties}
+                                    />
+                                </View>
+                                <Text style={styles.title}>Amount placed</Text>
+                                <View style={[{ width: 200 }, t.bgGray100, t.border, t.borderGray300, t.pX6, t.pY3, t.mB8, t.roundedFull]}>
+                                    <TextInput
+                                        value={amount}
+                                        onChangeText={value => setAmount(value)}
+                                        keyboardType="number-pad"
+                                    />
+                                </View>
+                                {
+                                    course && difficulty && amount ?
+                                        <TouchableOpacity onPress={() => submitCreate()} style={[{ backgroundColor: "#FE904B" }, t.pY3, t.pX6, t.roundedLg]}>
+                                            <Text style={[{ color: "#FFFFFF" }, t.fontBold]}>Create battle</Text>
+                                        </TouchableOpacity>
+                                        :
+                                        <View style={[{ opacity: 0.5, backgroundColor: "#FE904B" }, t.pY3, t.pX6, t.roundedLg]}>
+                                            <Text style={[{ color: "#FFFFFF" }, t.fontBold]}>Create battle</Text>
+                                        </View>
+                                }
+                            </View>
+                        </TouchableWithoutFeedback>
                     </BlurView>
                     : null
             }
@@ -161,19 +228,13 @@ function CompetitionListScreen({ navigation }) {
                 competitions && competitions.length !== 0
                     ?
                     competitions.map(competition => {
-                        console.log(competition.quiz)
                         return (
                             <Competition
                                 key={competition._id}
                                 host={competition.host}
                                 player={competition.player}
                                 course={competition.course}
-                                navigation={() => navigation.push("Competition", {
-                                    title: competition.course,
-                                    host: competition.host,
-                                    currency: competition.amount,
-                                    quiz: competition.quiz,
-                                })}
+                                navigation={() => joinRoom(competition._id, competition.course, competition.host, competition.amount, competition.quiz)}
                             />
                         )
                     })
@@ -194,15 +255,15 @@ const styles = StyleSheet.create({
         fontFamily: "Poppins-Normal",
     },
     button: {
-        width: '85%',
+        width: "85%",
         paddingVertical: 13,
-        flexDirection: 'row',
+        flexDirection: "row",
         marginBottom: 30,
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: "center",
+        justifyContent: "center",
         borderRadius: 10,
-        backgroundColor: 'white',
-        shadowColor: '#000',
+        backgroundColor: "white",
+        shadowColor: "#000",
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.2,
         shadowRadius: 3,

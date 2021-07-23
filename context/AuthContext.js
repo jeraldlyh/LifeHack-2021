@@ -60,7 +60,7 @@ function AuthProvider(props) {
                     .set({
                         _id: uuidv4(),
                         registeredAt: new Date().getTime(),
-                        points: 0,
+                        currency: 0,
                         enableNotification: false,
                         questCompleted: 0,
                         avatar: _.sample(AVATAR_URL),
