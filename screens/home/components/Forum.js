@@ -10,12 +10,16 @@ function Forum(props) {
 
         if (name === "Forums") {
             navigation.navigate("ForumPage");
+        }
+        else if (name === "Home"){
+            navigation.navigate('Forums',{screen:'ForumPage'})
+        }
         // } else if (name === "News") {
         //     navigation.push("News");
         // } else if (name === "Community") {
         //     navigation.push("Community");
         // };
-    };}
+    }
     return (
         <TouchableOpacity style = {styles.container} onPress = {()=>onPressed()}>
              {/* {/* { props.image === "covid" ? <Image source={require("../../../assets/news/covid.png")} style={styles.image} /> : null } */}
