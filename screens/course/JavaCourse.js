@@ -9,7 +9,7 @@ export default function JavaCourse(props) {
     const navigation = useNavigation();
     return (
         <ScrollView contentContainerStyle={[t.itemsCenter,t.wFull,{backgroundColor:'#FCFCFC'}]}>
-            <TouchableOpacity style = {{alignSelf:'flex-start',borderRadius:20,width:44,height:44,backgroundColor:'#A5A5A5',justifyContent:'center',alignItems:'center',marginTop:50,marginLeft:33}} onPress = {()=>navigation.pop()}>
+            <TouchableOpacity style = {{alignSelf:'flex-start',borderRadius:20,width:44,height:44,backgroundColor:'#A5A5A5',justifyContent:'center',alignItems:'center',marginTop:60,marginLeft:33}} onPress = {()=>navigation.pop()}>
                     <Icon
                         name='arrow-back-outline'
                         type='ionicon'
@@ -167,13 +167,12 @@ const styles = StyleSheet.create({
         color: "#595959"
     },
     container:{
-        marginTop:50,
         paddingHorizontal:33,
     },
     image: {
         marginTop: 25,
         height: 210,
-        width: 320,
+        width: 340,
         borderRadius: 25
     },
     profile: {

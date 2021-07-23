@@ -3,8 +3,11 @@ import { TouchableOpacity, SafeAreaView, StyleSheet, View, Text, ScrollView } fr
 import Button from "./components/Button";
 import { Icon } from "react-native-elements";
 import { t } from "react-native-tailwindcss";
+import { useAuth } from '../../context/AuthContext';
 
 function SettingsScreen({ navigation }) {
+    const { logoutUser } = useAuth();
+
     return (
         <SafeAreaView style={[t.flex, t.justifyCenter, t.itemsCenter]}>
             <View style={[t.selfStart, t.mT8, t.mL6, t.z10]}>
@@ -25,25 +28,25 @@ function SettingsScreen({ navigation }) {
                 </View>
                 <View style={styles.container}>
                     <Text style={styles.subHeader}>Account</Text>
-                    <Button text="Set Two-Factor Authentication" icon="lock-closed-outline" />
-                    <Button text="Language" icon="language-outline" />
-                    <Button text="Font Size" icon="text-outline" />
+                    <Button text="Set Two-Factor Authentication" icon="lock-closed-outline" onPress={() => console.log("")} />
+                    <Button text="Language" icon="language-outline" onPress={() => console.log("")} />
+                    <Button text="Font Size" icon="text-outline" onPress={() => console.log("")} />
                 </View>
 
                 <View style={styles.container}>
                     <Text style={styles.subHeader}>Notifications</Text>
-                    <Button text="Notification Settings" icon="notifications-circle-outline" />
+                    <Button text="Notification Settings" icon="notifications-circle-outline" onPress={() => console.log("")} />
                 </View>
 
                 <View style={styles.container}>
                     <Text style={styles.subHeader}>About</Text>
-                    <Button text="Terms of Use" icon="newspaper-outline" />
-                    <Button text="Privacy Policy" icon="shield-checkmark-outline" />
-                    <Button text="Report a problem" icon="alert-circle-outline" />
+                    <Button text="Terms of Use" icon="newspaper-outline" onPress={() => console.log("")} />
+                    <Button text="Privacy Policy" icon="shield-checkmark-outline" onPress={() => console.log("")} />
+                    <Button text="Report a problem" icon="alert-circle-outline" onPress={() => console.log("")} />
                 </View>
 
                 <View style={[styles.container, t.mT3, t.mB10]}>
-                    <Button text="Logout" icon="exit-outline" />
+                    <Button text="Logout" icon="exit-outline" onPress={() => logoutUser()} />
                 </View>
             </ScrollView>
         </SafeAreaView>

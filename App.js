@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { LogBox } from "react-native";
 import * as Font from "expo-font";
 import RootStack from './screens/RootStack';
+import CourseStack from './screens/course/CourseStack';
 import Loading from './components/Loading';
 import HomeStack from './screens/home/HomeStack';
 import CourseOptions from './screens/home/components/CourseOptions';

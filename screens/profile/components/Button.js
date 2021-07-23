@@ -12,10 +12,9 @@ function Button(props) {
     // };
 
     return (
-        <TouchableOpacity 
+        <TouchableOpacity
             style={[styles.container, props.text === "Logout" ? { backgroundColor: "#FE904B" } : { backgroundColor: "#F6F6F6" }]}
-            // onPress={props.text === "Logout" ? logout : null}
-        >
+            onPress={props.onPress}>
             <View style={[t.w1_6, t._mL2]}>
                 <Icon name={props.icon}
                     type="ionicon"
@@ -28,9 +27,9 @@ function Button(props) {
             {
                 props.text === "Logout"
                     ? <Ionicons style={[t.w5]} />
-                    : 
-                        <Ionicons name="chevron-forward-outline" size={20} color="#9999aa" />
-                
+                    :
+                    <Ionicons name="chevron-forward-outline" size={20} color="#9999aa" />
+
             }
         </TouchableOpacity>
     )
@@ -58,9 +57,9 @@ const styles = StyleSheet.create({
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.2,
-        shadowRadius: 0.5,  
-        borderRadius:14,
-        marginBottom:5,
+        shadowRadius: 0.5,
+        borderRadius: 14,
+        marginBottom: 5,
     }
 })
 

@@ -42,9 +42,9 @@ const styles = StyleSheet.create({
         borderRadius: 14,
         backgroundColor: 'white',
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.4,
-        shadowRadius: 1,  
+        shadowOffset: { width: 0, height:4 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,  
         marginRight:20
     },
     image: {

@@ -50,7 +50,7 @@ export default function Lesson(props) {
                     />
             </TouchableOpacity>
 
-        <Text style = {{fontFamily:'Poppins-Bold',fontSize:18}}>Course Detail</Text>
+        <Text style = {{fontFamily:'Poppins-Bold',fontSize:21}}>Course Detail</Text>
       <Video
         style={styles.video}
         source={{
@@ -61,19 +61,19 @@ export default function Lesson(props) {
         isLooping
        
       />
-      <Text style = {[{fontSize:24,fontFamily:'Poppins-Bold',alignSelf:'flex-start'},t.mT3]}>Conditions and loops</Text>
-      <View style = {[{flexDirection:'row',alignSelf:'flex-start'},t.mT3]}>
+      <Text style = {[{fontSize:25,fontFamily:'Poppins-Bold',alignSelf:'flex-start'},t.mT5]}>Conditions and loops</Text>
+      <View style = {[{flexDirection:'row',alignSelf:'flex-start'},t.mT5]}>
           <Image source = {require("../../assets/home/laurensmith.jpg")} style = {styles.profileImage} />
           <View style = {t.mL3}>
-              <Text style = {{fontFamily:'Poppins-SemiBold',fontSize:11}}>
+              <Text style = {{fontFamily:'Poppins-SemiBold',fontSize:16}}>
                   Lauren Smith
               </Text>
-              <Text style = {{fontFamily:'Poppins-Normal',fontSize:10,color:"#7A7A7C"}}>
+              <Text style = {{fontFamily:'Poppins-Normal',fontSize:13,color:"#7A7A7C"}}>
                   Professor
               </Text>
           </View>
       </View>
-      <Text style = {[t.mT3,t.wFull,{fontSize:14,fontFamily:'Poppins-Normal',color:"#7A7A7C"}]}>
+      <Text style = {[t.mT3,t.wFull,{fontSize:15,fontFamily:'Poppins-Normal',color:"#7A7A7C"}]}>
         In this lesson, you will learn about different
         kinds of loops (for loops, while loops, do while 
         loops) and conditional statement (if and while
@@ -116,8 +116,8 @@ const styles = StyleSheet.create({
         borderRadius:14
     },
     profileImage:{
-        height:30,
-        width:30,
+        height:45,
+        width:45,
         borderRadius:100
     }
 })

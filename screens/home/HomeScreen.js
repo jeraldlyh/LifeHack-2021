@@ -119,7 +119,7 @@ function HomeScreen(props) {
                     </View>
                     <ScrollView >
 
-                    <Forum header = {"GCE O-Level Examination"} members = {"5k"} description = "Forum to post about your O-Levels knowledge, tips and resources" image = {"olevels"} />
+                    <Forum header = {"GCE O-Level Examination"} members = {"5k"} description = "Forum to post about your O-Levels knowledge, tips and resources" image = {"olevels"} name = "Home"/>
                     <Forum header = {"Mobile App Developers"} members = {"1.1k"} description = "Forum for mobile app developers to exchange tips and tricks" image = {"mobiledev"}/>
 
                         {/* {

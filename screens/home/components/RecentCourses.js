@@ -1,10 +1,12 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { StyleSheet, View, Image, Text } from "react-native";
+import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
 import { Icon } from "react-native-elements";
 
 function RecentCourses(props) {
+    const navigation = useNavigation();
     return (
-        <View style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress ={()=>navigation.navigate('Courses', { screen: 'Java' })}>
             {props.name === "Java for beginners" ? (
                 <Image
                     source={require("../../../assets/home/java.jpg")}
@@ -44,7 +46,7 @@ function RecentCourses(props) {
                     </Text>
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 }
 
