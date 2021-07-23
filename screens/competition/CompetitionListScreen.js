@@ -154,6 +154,7 @@ function CompetitionListScreen({ navigation }) {
                         host={competition.host}
                         player={competition.player}
                         course={competition.course}
+                        status={competition.started}
                         navigation={() => joinRoom(competition._id, competition.course, competition.host, competition.amount, competition.quiz)}
                     />
                 )

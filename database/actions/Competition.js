@@ -167,3 +167,11 @@ export const leaveCompetition = (docID, isHost) => {
         }
     });
 };
+
+export const startCompetition = (docId) => {
+    firebase.firestore().collection("Competition")
+        .doc(docID)
+        .update({
+            started: true
+        });
+};

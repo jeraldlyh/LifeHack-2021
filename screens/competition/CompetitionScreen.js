@@ -5,7 +5,7 @@ import firebase from "../../database/firebaseDB";
 import Button from "../../components/Button";
 import { BlurView } from "expo-blur";
 import _ from "lodash";
-import { invalidateRoom, leaveCompetition, updateAnswer } from "../../database/actions/Competition";
+import { invalidateRoom, leaveCompetition, startCompetition, updateAnswer } from "../../database/actions/Competition";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 import { getCourseImage } from "../../database/actions/Course";
 import { useAuth } from "../../context/AuthContext";
@@ -39,15 +39,15 @@ function CompetitionScreen({ route, navigation }) {
                     invalidateRoom(id);                 // Invalidate room such that it does not appear on the list
                     setDisplayCompletionModal(true);
                     increaseGamePlayed(tempRoomData.host.name)
-                    // increaseGamePlayed(tempRoomData.player.name)
+                    increaseGamePlayed(tempRoomData.player.name)
 
                     if (tempRoomData.host.isCorrect) {
                         addCurrency(tempRoomData.host.name, tempRoomData.amount * 2);
                     }
 
-                    // if (tempRoomData.player.isCorrect) {
-                    //     addCurrency(tempRoomData.player.name, tempRoomData.amount * 2);
-                    // }
+                    if (tempRoomData.player.isCorrect) {
+                        addCurrency(tempRoomData.player.name, tempRoomData.amount * 2);
+                    }
                 };
             });
 
@@ -127,6 +127,7 @@ function CompetitionScreen({ route, navigation }) {
             </BlurView>
         )
     } else if (isWaitingForResponse()) {
+        startCompetition(id);               // Probably means both players entered the room if reached here
         return (
             <BlurView intensity={95} style={[t.itemCenter, t.justifyCenter, { height: "100%", position: "absolute", width: "100%", zIndex: 100 }]}>
                 <LoadingText text={[
