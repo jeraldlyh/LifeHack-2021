@@ -17,16 +17,16 @@ function CourseOptions(props) {
                 />
             ) : null}
 
-            <Text style = {[t.mL3,t.mT3,{fontFamily:'Poppins-SemiBold',fontSize:11}]}>{props.name}</Text>
+            <Text style = {[t.mL3,t.mT3,{fontFamily:'Poppins-SemiBold',fontSize:15}]}>{props.name}</Text>
             <View style = {[t.mL3,t.itemsCenter,{flexDirection:'row'}]}>
             <Icon name="schedule" type="material" color="#AEAEBF" size = {12}/>
-            <Text style = {{fontFamily:'Poppins-Normal',fontSize:10,color:'#AEAEBF'}}> {props.time}</Text>
+            <Text style = {{fontFamily:'Poppins-Normal',fontSize:12,color:'#AEAEBF'}}> {props.time}</Text>
             </View>
             <View style = {[t.mL3,t.mT3,{flexDirection:'row' ,marginTop:5}]}>
             {props.tags? props.tags.map((tags, index) => {
                                 return (
-                                    <View style = {{borderRadius:14,borderWidth:0.5,height:15,alignItems:'center',justifyContent:'center', marginRight:5}}>
-                    <Text style = {{fontFamily:'Poppins-Normal',fontSize:9,marginHorizontal:5,color:'#7E7E92'}}>{tags}</Text>
+                                    <View style = {{borderRadius:14,borderWidth:0.5,height:20,alignItems:'center',justifyContent:'center', marginRight:5}}>
+                    <Text style = {{fontFamily:'Poppins-Normal',fontSize:11,marginHorizontal:5,color:'#7E7E92'}}>{tags}</Text>
                 </View>
                                 )
                             }):
@@ -47,10 +47,10 @@ function CourseOptions(props) {
                 />
             ) : null}
                 <View style = {[t.mL2]}>
-                    <Text style = {{fontFamily:'Poppins-SemiBold',fontSize:11}}>
+                    <Text style = {{fontFamily:'Poppins-SemiBold',fontSize:13}}>
                         {props.owner}
                     </Text>
-                    <Text style= {{fontFamily:'Poppins-Normal',fontSize:10, color:'#AEAEBF'}}>
+                    <Text style= {{fontFamily:'Poppins-Normal',fontSize:12, color:'#AEAEBF'}}>
                         {props.job}
                     </Text>
                 </View>
@@ -62,14 +62,14 @@ function CourseOptions(props) {
 const styles = StyleSheet.create({
     container:{
         width:165,
-        height:200,
+        height:225,
         borderRadius:14,
         marginRight:30,
         backgroundColor: 'white',
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.4,
-        shadowRadius: 1,  
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.2,
+        shadowRadius: 3,  
     },
     image:{
         width:'100%',
@@ -78,8 +78,8 @@ const styles = StyleSheet.create({
     },
     profileImage:{
         borderRadius:287.5,
-        width:30,
-        height:30,
+        width:40,
+        height:40,
         resizeMode:'contain'
     }
 })

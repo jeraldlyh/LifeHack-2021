@@ -21,10 +21,10 @@ function HomeScreen(props) {
 
             <View style={[styles.guidingNav,  t.mT16]}>
                 <View>
-                <Text style={{ fontFamily: "Poppins-Bold", fontSize: 25 }}>
+                <Text style={{ fontFamily: "Poppins-Bold", fontSize: 35 }}>
                     Hi John! 
                 </Text>
-                <Text style={{ fontFamily: "Poppins-Bold", fontSize: 18 ,marginTop:20}}>
+                <Text style={{ fontFamily: "Poppins-Bold", fontSize: 18 ,marginTop:2}}>
                     What do you need?
                 </Text>
                 </View>
@@ -34,7 +34,7 @@ function HomeScreen(props) {
                     <Options name = "Games"/>
                     <Options name = "Forums"/>
                 </View>
-                <View style={[styles.applicationStatus, t.mT12]}>
+                <View style={[styles.applicationStatus, t.mT8]}>
                     <View style={[styles.applicationHeader, t.itemsCenter,t.flex]}>
                         <Text
                             style={{ fontFamily: "Poppins-Bold", fontSize: 20 }}
@@ -87,12 +87,9 @@ function HomeScreen(props) {
                             See all
                         </Text>
                     </View>
-                    <ScrollView style = {{height:230}} horizontal ={true} >
+                    <ScrollView style = {{height:240}} horizontal ={true} >
                         <CourseOptions name = "App Development" time = "3h 12m" owner = "Jayden" job = "Developer" tags = {["UI/UX","Development"]}/>
                         <CourseOptions name = "Data Analytics" time = "3h 12m" owner = "Lauren Smith" job = "Professor" tags = {["Machine Learning"]}/>
-                        {/* <News header = {"13 new community COVID-19 cases in Singapore, including 6 unlinked; 4 imported cases"} time = {2} image = {"covid"}/>
-                        <News header = {"New medical centres for migrant workers will provide medical, well-being support"} time = {18} image = {"migrantWorkers"}/>
-                        <News header = {"New Covid-19 clusters in Henderson Crescent, CGH; 3 unlinked cases"} time = {18} image = {"cgh"}/> */}
                     </ScrollView>
                 </View>
                 <View style={styles.applicationStatus}>
@@ -122,7 +119,7 @@ function HomeScreen(props) {
                     </View>
                     <ScrollView >
 
-                    <Forum header = {"GCE O-Levels Examination"} members = {"5k"} description = "Forum to post about your O-Levels knowledge, tips and resources" image = {"olevels"}/>
+                    <Forum header = {"GCE O-Level Examination"} members = {"5k"} description = "Forum to post about your O-Levels knowledge, tips and resources" image = {"olevels"}/>
                     <Forum header = {"Mobile App Developers"} members = {"1.1k"} description = "Forum for mobile app developers to exchange tips and tricks" image = {"mobiledev"}/>
 
                         {/* {
@@ -183,7 +180,7 @@ const styles = StyleSheet.create({
     applicationHeader: {
         flexDirection: "row",
         justifyContent: "space-between",
-        marginBottom: 13,
+        marginBottom: 10,
         alignItems:'center'
     },
 });
