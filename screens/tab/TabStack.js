@@ -3,6 +3,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import HomeStack from "../home/HomeStack";
 import CompetitionStack from "../competition/CompetitionStack";
+import NotifScreen from "../notifications/NotifScreen";
+import ProfileStack from "../profile/ProfileStack";
 
 const Tab = createBottomTabNavigator();
 
@@ -44,8 +46,8 @@ const TabStack = () => {
         >
             <Tab.Screen name="Home" component={HomeStack} />
             <Tab.Screen name="Compete" component={CompetitionStack} />
-            {/* <Tab.Screen name="Notifs" />
-            <Tab.Screen name="Profile" /> */}
+            <Tab.Screen name="Notifs" component={NotifScreen} />
+            <Tab.Screen name="Profile" component={ProfileStack} />
         </Tab.Navigator>
     );
 };

@@ -24,7 +24,7 @@ export default function CourseHome(props) {
             <Text style = {{fontFamily:'Poppins-Bold', fontSize:28}}>
             Courses
             </Text>
-            <View style = {{marginTop:10,backgroundColor:'#ffffff',height:40,width:'100%',borderRadius:10,alignItems:'center',flexDirection:'row'}}>
+            <View style = {{marginTop:10,backgroundColor:'#f2f2f2',height:40,width:'100%',borderRadius:10,alignItems:'center',flexDirection:'row'}}>
                 <Icon name='ios-search-outline'
                         type='ionicon'
                         color='#B8B0B0'
