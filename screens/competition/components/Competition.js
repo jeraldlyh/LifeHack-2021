@@ -40,7 +40,7 @@ function Competition(props) {
     return (
         <View style={styles.container}>
             <Image source={{ uri: courseImage }} style={styles.image} />
-            <View style={[t.wFull, { width: 200, marginLeft: 25, marginRight: 20 }]}>
+            <View style={[t.wFull, tailwind("flex flex-col justify-center"),{ width: 200, marginLeft: 25, marginRight: 20 }]}>
                 <Text style={{ fontFamily: "Poppins-SemiBold", fontSize: 16 }}>{props.course}</Text>
                 <View style={tailwind("flex flex-row justify-between mb-2")}>
                     <Text style={{ fontFamily: "Poppins-Normal", fontSize: 13, color: "#8888aa" }}>1v1 Battle</Text>
@@ -78,11 +78,11 @@ function Competition(props) {
 
                 </View>
                 <TouchableOpacity
-                    style={[t.mT5, t.pY1, t.pX4, t.bgGray200, t.roundedFull, t.flex, t.flexRow, t.selfEnd, t.mR10]}
-                    onPress={props.navigation}
+                    style={[tailwind("flex w-24 items-center self-center"), t.bgGray200, t.roundedFull, t.mT5, t.pY1]}
+                    onPress={props.status ? console.log("") : props.navigation}
                 >
                     <Text style={{ fontFamily: "Poppins-SemiBold", color: () => _.sample(ACCENTS) }}>
-                        Join battle
+                        {props.status ? "-" : "Join battle"}
                     </Text>
                 </TouchableOpacity>
             </View>
