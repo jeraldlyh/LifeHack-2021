@@ -15,7 +15,7 @@ function Button(props) {
                         color="#aeaebf"
                     />
                     <View style={tailwind("ml-6")}>
-                        <Text style={[styles.text, tailwind("text-base")]}>New Quest: {props.name}</Text>
+                        <Text style={[styles.text, tailwind("text-base")]}>New Battle: {props.name}</Text>
                         <Text style={tailwind("text-sm text-gray-400 font-normal")}>{props.time}</Text>
                     </View>
                 </>
@@ -27,8 +27,7 @@ function Button(props) {
                         color="#aeaebf"
                     />
                     <View style={tailwind("ml-6")}>
-                        <Text style={[styles.text, tailwind("text-base")]}>Application {props.status}:</Text>
-                        <Text style={[styles.text, tailwind("text-base")]}>{props.name}</Text>
+                        <Text style={[styles.text, tailwind("text-base")]}>New Course: {props.name}</Text>
                         <Text style={tailwind("text-sm text-gray-400 font-normal")}>{props.time}</Text>
                     </View>
                 </>

@@ -19,11 +19,10 @@ function SettingsScreen() {
                 </TouchableOpacity>
             </View>
             <View style={[styles.div, tailwind("bg-white w-5/6 self-center my-5 flex flex-col mb-10")]}>
-                <Button type="quest" name="Chinatown" time="11 hours ago"/>
-                <Button type="quest" name="Merlion" time="11 hours ago"/>
-                <Button type="application" name="S Pass" status="Approved" time="11 hours ago"/>
-                <Button type="application" name="EntrePass" status="Submitted" time="1 day ago"/>
-                <Button type="application" name="S Pass" status="Submitted" time="2 days ago"/>
+                <Button type="quest" name="Python for Beginners" time="11 hours ago"/>
+                <Button type="quest" name="Multiplication" time="11 hours ago"/>
+                <Button type="application" name="Web App Development" time="11 hours ago"/>
+                <Button type="application" name="Data Analytics" time="1 day ago"/>
             </View>
         </ScrollView>
     );
