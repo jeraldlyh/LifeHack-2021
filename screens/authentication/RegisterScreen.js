@@ -28,22 +28,22 @@ function RegisterScreen({ navigation }) {
                         <TextInput
                             mode="flat"
                             label="Name"
-                            style={[t.h16, t.w4_5, t.roundedLg]}
+                            style={[t.h14, t.w4_5, t.roundedLg]}
                             value={name}
                             onChangeText={name => setName(name)}
                         />
                         <TextInput
                             mode="flat"
                             label="Email"
-                            style={[t.h16, t.w4_5, t.roundedLg, t.mT2, t.mB2]}
+                            style={[t.h14, t.w4_5, t.roundedLg, t.mT3]}
                             value={email}
-                            onChangeText={email => setEmail(email)}
+                            onChangeText={email => setEmail(email.toLowerCase())}
                             keyboardType="email-address"
                         />
                         <TextInput
                             mode="flat"
                             label="Password"
-                            style={[t.h16, t.w4_5, t.roundedLg, t.mB5]}
+                            style={[t.h14, t.w4_5, t.roundedLg, t.mT3, t.mB6]}
                             value={password}
                             onChangeText={password => setPassword(password)}
                             secureTextEntry={secureText}
