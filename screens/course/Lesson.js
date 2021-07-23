@@ -8,6 +8,7 @@ import QandACard from './components/QandACard';
 import { useNavigation, useNavigationState } from '@react-navigation/native';
 
 export default function Lesson(props) {
+    const pythonVid = require("../../assets/pythontutorial.mp4")
     const navigation = useNavigation();
     const [active1, setActive1] = useState(true);
     const [active2, setActive2] = useState(false);
@@ -53,9 +54,9 @@ export default function Lesson(props) {
         <Text style = {{fontFamily:'Poppins-Bold',fontSize:21}}>Course Detail</Text>
       <Video
         style={styles.video}
-        source={{
-          uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-        }}
+        source={
+          pythonVid
+        }
         useNativeControls
         resizeMode="contain"
         isLooping
