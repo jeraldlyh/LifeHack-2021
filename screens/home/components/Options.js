@@ -11,8 +11,8 @@ function Options(props) {
 
         if (name === "Courses") {
             navigation.push("Courses");
-        // } else if (name === "Trivia") {
-        //     navigation.push("Trivia");
+        } else if (name === "Forums") {
+            navigation.push("Forums");
         // } else if (name === "News") {
         //     navigation.push("News");
         // } else if (name === "Community") {

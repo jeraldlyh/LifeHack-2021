@@ -14,8 +14,6 @@ export default function ForumHome() {
     const [active2, setActive2] = useState(false);
     const [active3, setActive3] = useState(false);
     const [active4, setActive4] = useState(false);
-    const [active5, setActive5] = useState(false);
-    const [active6, setActive6] = useState(false);
     const setOthersInactive = (number) => {
         for (let i = 1; i <= 6; i++) {
             if (i != number) {
@@ -117,7 +115,9 @@ export default function ForumHome() {
                    
                 </ScrollView>
                 <Searchbar style = {[t.mT5,t.mB5]}/>
-                <Forum header = {"GCE O-Level Examination"} members = {"5k"} description = "Forum to post about your O-Levels knowledge, tips and resources" image = {"olevels"}/>
+                <TouchableOpacity onPress ={()=>console.log("hello")}>
+                    <Forum header = {"GCE O-Level Examination"}  members = {"5k"} description = "Forum to post about your O-Levels knowledge, tips and resources" image = {"olevels"} name = "Forums"/>
+                </TouchableOpacity>
                 <Forum header = {"Mobile App Developers"} members = {"1.1k"} description = "Forum for mobile app developers to exchange tips and tricks" image = {"mobiledev"}/>
                 <Forum header = {"GCE O-Level Examination"} members = {"5k"} description = "Forum to post about your O-Levels knowledge, tips and resources" image = {"olevels"}/>
                 <Forum header = {"Mobile App Developers"} members = {"1.1k"} description = "Forum for mobile app developers to exchange tips and tricks" image = {"mobiledev"}/>

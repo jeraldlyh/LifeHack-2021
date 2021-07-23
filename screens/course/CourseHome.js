@@ -12,7 +12,7 @@ export default function CourseHome(props) {
     const navigation = useNavigation();
     return (
         <ScrollView style = {styles.container}>
-            <TouchableOpacity style = {{alignSelf:'flex-start',borderRadius:20,width:44,height:44,backgroundColor:'#A5A5A5',justifyContent:'center',alignItems:'center',marginBottom:20}} onPress = {()=>navigation.pop()}>
+            <TouchableOpacity style = {{alignSelf:'flex-start',borderRadius:20,width:44,height:44,backgroundColor:'#A5A5A5',justifyContent:'center',alignItems:'center',marginBottom:20,marginTop:50,}} onPress = {()=>navigation.pop()}>
                     <Icon
                         name='arrow-back-outline'
                         type='ionicon'
@@ -73,9 +73,10 @@ export default function CourseHome(props) {
 
 const styles = StyleSheet.create({
     container:{
-        marginTop:50,
+        
         paddingHorizontal:33,
         marginBottom:20,
+        backgroundColor:'#FCFCFC'
     },
     applicationHeader: {
         flexDirection: "row",

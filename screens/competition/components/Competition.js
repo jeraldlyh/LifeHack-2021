@@ -3,6 +3,8 @@ import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
 import { t } from "react-native-tailwindcss";
 import _ from "lodash"
 import { getCourseImage } from "../../../database/actions/Course";
+import Loading from "../../../components/Loading";
+
 
 const ACCENTS = ["#2D99B9", "#7C82A0", "#009633"]
 
@@ -13,6 +15,12 @@ function Competition(props) {
         getCourseImage(props.course)
             .then(image => setCourseImage(image));
     }, []);
+
+    if (!courseImage) {
+        return (
+            <Loading />
+        )
+    }
 
     return (
         <View style={styles.container}>

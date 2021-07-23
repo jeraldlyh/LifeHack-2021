@@ -31,6 +31,7 @@ function RegisterScreen({ navigation }) {
                             style={[t.h14, t.w4_5, t.roundedLg]}
                             value={name}
                             onChangeText={name => setName(name)}
+                            theme={{ colors: { primary: "#FF5029" } }}
                         />
                         <TextInput
                             mode="flat"
@@ -39,6 +40,7 @@ function RegisterScreen({ navigation }) {
                             value={email}
                             onChangeText={email => setEmail(email.toLowerCase())}
                             keyboardType="email-address"
+                            theme={{ colors: { primary: "#FF5029" } }}
                         />
                         <TextInput
                             mode="flat"
@@ -48,6 +50,7 @@ function RegisterScreen({ navigation }) {
                             onChangeText={password => setPassword(password)}
                             secureTextEntry={secureText}
                             right={<TextInput.Icon name="eye" onPress={() => setSecureText(!secureText)} />}
+                            theme={{ colors: { primary: "#FF5029" } }}
                         />
                         <Button onPress={() => registerUser(name, email, password)} text="Register" backgroundColor="#FE904B" textColor="#FFF" height={t.h12} />
                     </View>
