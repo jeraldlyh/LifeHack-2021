@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import tailwind from "tailwind-rn";
 import { t } from "react-native-tailwindcss";
@@ -7,12 +7,12 @@ import TopThree from './components/TopThree';
 export default function LeaderboardScreen(props) {
     const [leaderboards, setLeaderboards] = useState([]);
 
-    useEffect(() => {
-        effect
-        return () => {
-            cleanup
-        }
-    }, [input])
+    // useEffect(() => {
+    //     effect
+    //     return () => {
+    //         cleanup
+    //     }
+    // }, [input])
 
 
     return (
@@ -28,7 +28,7 @@ export default function LeaderboardScreen(props) {
             </View>
             <View style={{ marginTop: 10, borderBottomColor: '#A5A5A5', borderBottomWidth: 1 }} />
 
-            <TopThree />
+            {/* <TopThree /> */}
 
             <View style={{ flexDirection: "row", justifyContent: "space-between", marginLeft: 30, marginRight: 30, marginTop: 20 }}>
                 <View style={{ marginTop: 15 }}>

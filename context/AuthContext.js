@@ -37,20 +37,16 @@ function AuthProvider(props) {
         if (currentUser) {
             retrieveProfile(currentUser.displayName)
         }
-    }, [currentProfile])
+    }, [currentUser])
 
     const retrieveProfile = async (username) => {
+        setLoading(true)
         const profile = await getProfile(username)
         if (profile) {
             setCurrentProfile(profile)
         }
+        setLoading(false)
     }
-
-    useEffect(() => {
-        if (currentUser) {
-            retrieveProfile(currentUser.displayName)
-        }
-    }, [currentUser])
 
     const loginUser = async (email, password) => {
         return firebase.auth().signInWithEmailAndPassword(email.trim(), password.trim())
