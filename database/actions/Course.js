@@ -39,6 +39,22 @@ export const insertCourse = (data) => {
         });
 };
 
+export const getCourseDetails = () => {
+    return new Promise((resolve, reject) => {
+        firebase.firestore().collection("Course")
+            .get()
+            .then(querySnapshot => {
+                const listOfCourses = [];
+
+                querySnapshot.forEach(doc => listOfCourses.push({
+                    name: doc.data().name,
+                }))
+                resolve(listOfCourses);
+            })
+            .catch(error => console.log("Error in getListOfCourse"));
+    });
+};
+
 export const getCourseImage = (name) => {
     return new Promise((resolve, reject) => {
         firebase.firestore().collection("Course")
