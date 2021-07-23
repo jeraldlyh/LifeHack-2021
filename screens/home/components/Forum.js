@@ -5,9 +5,19 @@ import { useNavigation } from '@react-navigation/native';
 
 function Forum(props) {
     const navigation = useNavigation();
-    
+    const onPressed = () => {
+        const name = props.name;
+
+        if (name === "Forums") {
+            navigation.navigate("ForumPage");
+        // } else if (name === "News") {
+        //     navigation.push("News");
+        // } else if (name === "Community") {
+        //     navigation.push("Community");
+        // };
+    };}
     return (
-        <TouchableOpacity style = {styles.container} >
+        <TouchableOpacity style = {styles.container} onPress = {()=>onPressed()}>
              {/* {/* { props.image === "covid" ? <Image source={require("../../../assets/news/covid.png")} style={styles.image} /> : null } */}
             { props.image === "mobiledev" ? <Image source={require("../../../assets/home/mobiledev.png")} style={styles.image} /> : null }
             { props.image === "olevels" ? <Image source={require("../../../assets/home/olevels.jpg")} style={styles.image} /> : null } 

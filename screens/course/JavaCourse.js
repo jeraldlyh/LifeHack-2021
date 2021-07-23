@@ -25,7 +25,7 @@ export default function JavaCourse(props) {
                 </View>
 
                 <Image
-                    source={require("../../assets/course/java.jpg")} style={styles.image}
+                    source={require("../../assets/home/java.jpg")} style={styles.image}
                 />
 
                 <Text style = {{fontFamily:'Poppins-Bold', fontSize:26, marginTop: 20, marginBottom: 10}}>
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
     image: {
         marginTop: 25,
         height: 210,
-        width: "100%",
+        width: 320,
         borderRadius: 25
     },
     profile: {
