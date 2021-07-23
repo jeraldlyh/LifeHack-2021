@@ -25,7 +25,7 @@ function CourseOptions(props) {
             <View style = {[t.mL3,t.mT3,{flexDirection:'row' ,marginTop:5}]}>
             {props.tags? props.tags.map((tags, index) => {
                                 return (
-                                    <View style = {{borderRadius:14,borderWidth:0.5,height:15,alignItems:'center',justifyContent:'center', marginRight:5}}>
+                                    <View key = {index} style = {{borderRadius:14,borderWidth:0.5,height:15,alignItems:'center',justifyContent:'center', marginRight:5}}>
                     <Text style = {{fontFamily:'Poppins-Normal',fontSize:9,marginHorizontal:5,color:'#7E7E92'}}>{tags}</Text>
                 </View>
                                 )

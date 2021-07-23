@@ -3,7 +3,7 @@ import { StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import { t } from "react-native-tailwindcss";
 import { useNavigation } from "@react-navigation/native";
 
-function Options(props) {
+function Categories(props) {
     // const navigation = useNavigation();
 
     // const onPressed = () => {
@@ -24,9 +24,10 @@ function Options(props) {
         <TouchableOpacity
             style={[styles.container, t.itemsCenter,t.justifyCenter]}
         >   
-            { props.name === "Courses" ? <Image source={require("../../../assets/icons/courses.jpg")} style={styles.image} /> : null }
-            { props.name === "Forums" ? <Image source={require("../../../assets/icons/forums.jpg")} style={styles.image} /> : null }
-            { props.name === "Games" ? <Image source={require("../../../assets/icons/games.jpg")} style={styles.image} /> : null }
+            { props.name === "Math" ? <Image source={require("../../../assets/icons/math.jpg")} style={styles.image} /> : null }
+            { props.name === "Science" ? <Image source={require("../../../assets/icons/science.jpg")} style={styles.image} /> : null }
+            { props.name === "Grammar" ? <Image source={require("../../../assets/icons/grammar.jpg")} style={styles.image} /> : null }
+            { props.name === "Coding" ? <Image source={require("../../../assets/icons/coding.jpg")} style={styles.image} /> : null }
             {/* { props.name === "Community" ? <Image source={require("../../../assets/icons/community.png")} style={styles.community} /> : null } */}
 
             <Text style={[t.mT1,t.fontSemibold, styles.text]}>{props.name}</Text>
@@ -44,6 +45,7 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.4,
         shadowRadius: 1,  
+        marginRight:20
     },
     image: {
         height: 25,
@@ -59,4 +61,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Options;
+export default Categories;

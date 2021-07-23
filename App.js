@@ -8,6 +8,7 @@ import Loading from './components/Loading';
 import HomeStack from './screens/home/HomeStack';
 import CourseOptions from './screens/home/components/CourseOptions';
 import HomeScreen from './screens/home/HomeScreen';
+import CourseHome from './screens/course/CourseHome';
 
 LogBox.ignoreAllLogs();
 
@@ -36,9 +37,10 @@ export default function App() {
                 //         <RootStack />
                 //     </NavigationContainer>
                 // </AuthProvider>
-                <NavigationContainer>
-                    <HomeStack/>
-                </NavigationContainer>
+                // <NavigationContainer>
+                //     <HomeStack/>
+                // </NavigationContainer>
+                <CourseHome/>
                 
             )
             : (
