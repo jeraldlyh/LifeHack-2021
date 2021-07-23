@@ -1,6 +1,7 @@
 import React, { useState, useEffect, createContext, useContext } from "react";
 import firebase from "../database/firebaseDB";
 import _ from "lodash";
+import { v4 as uuidv4 } from "uuid";
 
 export const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
