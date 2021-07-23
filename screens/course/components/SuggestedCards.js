@@ -22,7 +22,7 @@ export default function SuggestedCards(props) {
 
     return (
         <TouchableOpacity style = {styles.container} onPress = {()=>onPressed()}>
-            <View style = {{padding:10,flex:1,alignItems:'center'}}>
+            <View style = {{paddingTop:10,flex:1,alignItems:'center'}}>
                 <Text style ={{fontFamily:'Poppins-SemiBold',fontSize:12,marginBottom:10}}>{props.name}</Text>
                 <Text style ={{fontFamily:'Poppins-Normal',fontSize:10,marginBottom:10}}>{props.progress} topics completed</Text>
                 <View>
@@ -58,12 +58,16 @@ const styles = StyleSheet.create({
     container:{
         width:'100%',
         height:120,
-        borderWidth:1,
-        borderRadius:14,
         // flex:1,
         flexDirection:'row',
         justifyContent:'space-between',
-        marginBottom:20
+        marginBottom:20,
+        backgroundColor:'#ffffff',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.4,
+        shadowRadius: 1, 
+        borderRadius: 14
     },
     image:{
         width:130,

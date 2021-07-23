@@ -59,7 +59,7 @@ export default function ForumHome() {
             <Image source = {require("../../assets/forum/psleheader.png")} style = {styles.image}/>
             <View style={[t.selfStart,t.mL6,t.mR6,t.z10,{top:50}]}>
                 <TouchableOpacity
-                    style={[t.bgGray300,t.mT1,t.w14,t.h14,t.roundedFull,t.absolute,t.opacity50,t.itemsCenter,t.flex,t.justifyCenter]}
+                    style={[t.bgGray300,t.mT1,t.w14,t.h14,t.roundedFull,t.absolute,t.opacity50,t.itemsCenter,t.flex,t.justifyCenter, t.absolute]}
                     onPress={() => navigation.goBack()}
                 >
                     <Icon

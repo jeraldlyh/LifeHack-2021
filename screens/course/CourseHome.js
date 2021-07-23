@@ -59,7 +59,7 @@ export default function CourseHome(props) {
             </ScrollView>
 
             <Text style={{ fontFamily: "Poppins-Bold", fontSize: 18 , marginTop:20,marginBottom:20}}>
-                Your Suggested
+                Your suggested
             </Text>
 
             <ScrollView>

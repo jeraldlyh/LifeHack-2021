@@ -4,7 +4,7 @@ import { t } from "react-native-tailwindcss";
 
 export default function DayStreak(props) {
     return (
-        <View style = {styles.container}>
+        <View style = {[styles.container, t.roundedLg, t.bgWhite, t.shadowMd, t.shadowBlack]}>
             <Image source = {require("../../../assets/icons/streak.png")} style = {{height:60,width:60}} />
             <View style = {[t.mL3]}>
                 <Text style = {{fontFamily:'Poppins-SemiBold',fontSize:12}}>
@@ -25,8 +25,6 @@ const styles = StyleSheet.create({
         alignItems:'center',
         width:308,
         height:81,
-        borderRadius:14,
-        borderWidth:1,
         alignSelf:'center',
         marginBottom:30
     }
