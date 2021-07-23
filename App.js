@@ -1,13 +1,42 @@
-import { StatusBar } from 'expo-status-bar'
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { t } from "react-native-tailwindcss"
+import React, { useEffect, useState } from 'react';
+import AuthProvider from './provider/AuthProvider';
+import { NavigationContainer } from '@react-navigation/native';
+import { LogBox } from "react-native";
+import * as Font from "expo-font";
+import RootStack from './screens/RootStack';
+import Loading from './components/Loading';
+
+LogBox.ignoreAllLogs();
 
 export default function App() {
+
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    const loadFonts = async () => {
+        await Font.loadAsync({
+            "Poppins-Normal": require("./assets/fonts/Poppins-Regular.ttf"),
+            "Poppins-Bold": require("./assets/fonts/Poppins-Bold.ttf"),
+            "Poppins-Thin": require("./assets/fonts/Poppins-Thin.ttf"),
+            "Poppins-SemiBold": require("./assets/fonts/Poppins-SemiBold.ttf")
+        });
+        setIsLoaded(true);
+    };
+
+    useEffect(() => {       // Load default fonts
+        loadFonts();
+    }, [])
+
     return (
-        <View style={[t.flex1, t.justifyCenter, t.itemsCenter]}>
-            <Text>Open up App.js to start working on your app!</Text>
-            <StatusBar style="auto" />
-        </View>
-    )
+        isLoaded
+            ? (
+                <AuthProvider>
+                    <NavigationContainer>
+                        <RootStack />
+                    </NavigationContainer>
+                </AuthProvider>
+            )
+            : (
+                <Loading />
+            )
+    );
 }
