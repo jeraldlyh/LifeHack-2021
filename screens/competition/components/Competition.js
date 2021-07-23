@@ -1,36 +1,37 @@
-import React from 'react';
-import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from "react";
+import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
 import { t } from "react-native-tailwindcss";
-import { useNavigation } from '@react-navigation/native';
+import _ from "lodash"
+import { getCourseImage } from "../../../database/actions/Course";
+
+const ACCENTS = ["#2D99B9", "#7C82A0", "#009633"]
 
 function Competition(props) {
-    const navigation = useNavigation();
-    const accent = props.name === "Java for Beginners" 
-        ? "#2D99B9" 
-        : props.name === "Nuclear Physics" 
-            ? "#7C82A0" 
-            : "#009633" 
+    const [courseImage, setCourseImage] = useState("");
+
+    useEffect(() => {
+        getCourseImage(props.course)
+            .then(image => setCourseImage(image));
+    }, []);
 
     return (
-        <View style={styles.container} >
-            {props.name === "Java for Beginners" ? <Image source={require("../../../assets/home/java.jpg")} style={styles.image} /> : null}
-            {props.name === "Nuclear Physics" ? <Image source={require("../../../assets/home/nuclearphysics.jpg")} style={styles.image} /> : null}
-            {props.name === "GCE O-Level English" ? <Image source={require("../../../assets/competition/olevel.jpeg")} style={styles.image} /> : null}
-
+        <View style={styles.container}>
+            <Image source={{ uri: courseImage }} style={styles.image} />
             <View style={[t.wFull, { width: 200, marginLeft: 25, marginRight: 20 }]}>
-                <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16 }}>{props.name}</Text>
-                <Text style={{ fontFamily: 'Poppins-Normal', fontSize: 13, color: "#8888aa", marginBottom: 15 }}>1v1 Battle</Text>
-                <View style={[t.wFull, t.flex, t.flexRow, t.itemsCenter ]}>
-                    {props.creator === "Nicholas Ong" ? <Image source={require("../../../assets/competition/nicholas.png")} style={styles.avatar} /> : null}
-                    {props.creator === "Yvonne Lim" ? <Image source={require("../../../assets/competition/jerald.png")} style={styles.avatar} /> : null}
-                    {props.creator === "Jerald Lim" ? <Image source={require("../../../assets/competition/yvonne.png")} style={styles.avatar} /> : null}
+                <Text style={{ fontFamily: "Poppins-SemiBold", fontSize: 16 }}>{props.course}</Text>
+                <Text style={{ fontFamily: "Poppins-Normal", fontSize: 13, color: "#8888aa", marginBottom: 15 }}>1v1 Battle</Text>
+                <View style={[t.wFull, t.flex, t.flexRow, t.itemsCenter]}>
+                    <Image source={{ uri: props.host.avatar }} style={styles.avatar} />
                     <View style={[t.mL3]}>
-                        <Text style={[t.textSm, t.fontSemibold]}>{props.creator}</Text>
-                        <Text style={[t.textXs], {color: "#8888aa"}}>Student</Text>
+                        <Text style={[t.textSm, t.fontSemibold]}>{props.host.name}</Text>
+                        <Text style={[t.textXs], { color: "#8888aa" }}>Student</Text>
                     </View>
                 </View>
-                <TouchableOpacity style={[t.mT5, t.pY1, t.pX4, t.bgGray200, t.roundedFull, t.flex, t.flexRow, t.selfEnd, t.mR10]}>
-                    <Text style={{fontFamily: 'Poppins-SemiBold', color:`${accent}`}}>
+                <TouchableOpacity
+                    style={[t.mT5, t.pY1, t.pX4, t.bgGray200, t.roundedFull, t.flex, t.flexRow, t.selfEnd, t.mR10]}
+                    onPress={props.navigation}
+                >
+                    <Text style={{ fontFamily: "Poppins-SemiBold", color: _.sample(ACCENTS) }}>
                         Join battle
                     </Text>
                 </TouchableOpacity>
@@ -41,14 +42,14 @@ function Competition(props) {
 
 const styles = StyleSheet.create({
     container: {
-        width: '85%',
+        width: "85%",
         height: 180,
-        flexDirection: 'row',
+        flexDirection: "row",
         marginBottom: 30,
-        alignItems: 'center',
+        alignItems: "center",
         borderRadius: 14,
-        backgroundColor: 'white',
-        shadowColor: '#000',
+        backgroundColor: "white",
+        shadowColor: "#000",
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.2,
         shadowRadius: 3,

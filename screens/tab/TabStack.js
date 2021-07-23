@@ -2,6 +2,7 @@ import React from "react";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import HomeStack from "../home/HomeStack";
+import CompetitionStack from "../competition/CompetitionStack";
 
 const Tab = createBottomTabNavigator();
 
@@ -16,10 +17,10 @@ const TabStack = () => {
                         iconName = focused
                             ? 'home'
                             : 'home-outline'
-                    } else if (route.name === 'Chat') {
+                    } else if (route.name === 'Compete') {
                         iconName = focused
-                            ? 'chatbubble-ellipses'
-                            : 'chatbubble-ellipses-outline';
+                            ? 'trophy'
+                            : 'trophy-outline';
                     } else if (route.name === 'Notifs') {
                         iconName = focused
                             ? 'notifications'
@@ -41,9 +42,9 @@ const TabStack = () => {
                 inactiveTintColor: 'gray',
             }}
         >
-            <Tab.Screen name="Home"component={HomeStack} />
-            {/* <Tab.Screen name="Chat" />
-            <Tab.Screen name="Notifs" />
+            <Tab.Screen name="Home" component={HomeStack} />
+            <Tab.Screen name="Compete" component={CompetitionStack} />
+            {/* <Tab.Screen name="Notifs" />
             <Tab.Screen name="Profile" /> */}
         </Tab.Navigator>
     );

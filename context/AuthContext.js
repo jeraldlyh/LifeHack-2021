@@ -1,6 +1,7 @@
 import React, { useState, useEffect, createContext, useContext } from "react";
 import firebase from "../database/firebaseDB";
 import _ from "lodash";
+import { getProfile } from "../database/actions/Profile";
 import { v4 as uuidv4 } from "uuid";
 
 export const AuthContext = createContext();
@@ -17,6 +18,7 @@ const AVATAR_URL = [
 function AuthProvider(props) {
     const [currentUser, setCurrentUser] = useState(null)
     const [loading, setLoading] = useState(true)
+    const [currentProfile, setCurrentProfile] = useState(null)
 
     useEffect(() => {
         const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
@@ -31,23 +33,41 @@ function AuthProvider(props) {
         return unsubscribe
     }, [])
 
+    const retrieveProfile = async (username) => {
+        const profile = await getProfile(username)
+        if (profile) {
+            setCurrentProfile(profile)
+        }
+    }
+
+    useEffect(() => {
+        if (currentUser) {
+            retrieveProfile(currentUser.displayName)
+        }
+    }, [currentUser])
+
     const loginUser = async (email, password) => {
         return firebase.auth().signInWithEmailAndPassword(email.trim(), password.trim())
     };
 
     const registerUser = async (username, email, password) => {
-        await firebase.auth().createUserWithEmailAndPassword(email, password)
-        firebase.firestore().collection("User")
-            .doc(username)
-            .set({
-                _id: uuidv4(),
-                registeredAt: new Date().getTime(),
-                points: 0,
-                enableNotification: false,
-                questCompleted: 0,
-                avatar: _.sample(AVATAR_URL),
-                bio: "Add a bio here",
-                interests: [],
+        return firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then(userCredential => userCredential.user.updateProfile({
+                displayName: username
+            })).then(() => {
+                firebase.firestore().collection("User")
+                    .doc(username)
+                    .set({
+                        _id: uuidv4(),
+                        registeredAt: new Date().getTime(),
+                        points: 0,
+                        enableNotification: false,
+                        questCompleted: 0,
+                        avatar: _.sample(AVATAR_URL),
+                        bio: "Add a bio here",
+                        role: "Student",
+                        interests: [],
+                    });
             });
     };
 
@@ -57,6 +77,7 @@ function AuthProvider(props) {
 
     const value = {
         currentUser,
+        currentProfile,
         loginUser,
         registerUser,
         logoutUser
