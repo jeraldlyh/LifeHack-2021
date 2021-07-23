@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 export default function ForumPage() {
     const navigation = useNavigation();
     return (
-        <ScrollView>
+        <View>
             <Image source = {require("../../assets/forum/olevel.png") } style = {{width:'110%',alignSelf:'center',position:'absolute'}}/>
             <View style={[t.selfStart,t.mL6,t.mR6,t.z10,{top:50},]}>
                 <TouchableOpacity
@@ -42,8 +42,9 @@ export default function ForumPage() {
                     <Thread header ="How to perform during examinations, overcome mental blocks" upvote = "322" comment = "71"/>
                     <Thread header ="Free resources for Mathematics and English practices" upvote = "265" comment = "32"/>
                     <Thread header ="Private tuition recommendations for Chinese" upvote = "109" comment = "22"/>
+                    <View style = {{margin: 20}}></View>
             </View>
-        </ScrollView>
+        </View>
     )
 }
 
