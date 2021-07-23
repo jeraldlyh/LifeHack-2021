@@ -40,8 +40,8 @@ export default function Lesson(props) {
     };
 
   return (
-    <View style={[t.mT5,t.p10,t.itemsCenter]}>
-        <TouchableOpacity style = {{alignSelf:'flex-start',borderRadius:20,width:44,height:44,backgroundColor:'#A5A5A5',justifyContent:'center',alignItems:'center'}} onPress = {()=>navigation.pop()}>
+    < ScrollView contentContainerStyle={[t.p10,t.itemsCenter,{backgroundColor:'#FCFCFC'}]}>
+        <TouchableOpacity style = {[t.mT5,{alignSelf:'flex-start',borderRadius:20,width:44,height:44,backgroundColor:'#A5A5A5',justifyContent:'center',alignItems:'center'}]} onPress = {()=>navigation.pop()}>
                     <Icon
                         name='arrow-back-outline'
                         type='ionicon'
@@ -103,7 +103,7 @@ export default function Lesson(props) {
         upvote = {31} comment = {23}/>
         <QandACard type = {3} header = "My solution for Exercise 4" description = "I have looked through the Q&A section and realised I took a different approach"
         upvote = {30} comment = {28}/>
-    </View>
+    </ScrollView>
   );
 }
 
