@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { TextInput, Text, View, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, Keyboard, SafeAreaView } from "react-native";
+import { TextInput, Text, View, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, Keyboard, SafeAreaView, ScrollView } from "react-native";
 import { t } from "react-native-tailwindcss";
 import firebase from "../../database/firebaseDB";
 import { BlurView } from "expo-blur";
@@ -12,6 +12,7 @@ import { getCourseDetails } from "../../database/actions/Course";
 import Loading from "../../components/Loading";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { deductCurrency } from "../../database/actions/Profile";
+import tailwind from "tailwind-rn";
 
 
 function CompetitionListScreen({ navigation }) {
@@ -144,9 +145,31 @@ function CompetitionListScreen({ navigation }) {
             })
     };
 
+    const getCompetitionScreens = () => {
+        if (competitions && competitions.length !== 0) {
+            const output = competitions.map(competition => {
+                return (
+                    <Competition
+                        key={competition._id}
+                        host={competition.host}
+                        player={competition.player}
+                        course={competition.course}
+                        navigation={() => joinRoom(competition._id, competition.course, competition.host, competition.amount, competition.quiz)}
+                    />
+                )
+            })
+            return (
+                <ScrollView contentContainerStyle={tailwind("mt-1 flex flex-col items-center justify-center")}>
+                    {output}
+                </ScrollView >
+            );
+        };
+        return <Text style={styles.description}>No competitions ongoing now!</Text>;
+    };
+
     if (!difficulties && !courses) {
         return <Loading />
-    }
+    };
 
     return (
         <SafeAreaView style={[t.flex, t.hFull, t.wFull, t.justifyCenter, t.itemsCenter]}>
@@ -239,21 +262,7 @@ function CompetitionListScreen({ navigation }) {
                 <Text style={{ fontFamily: "Poppins-SemiBold", color: "#888888", fontSize: 16 }}>+ Create new battle</Text>
             </TouchableOpacity>
             {
-                competitions && competitions.length !== 0
-                    ?
-                    competitions.map(competition => {
-                        return (
-                            <Competition
-                                key={competition._id}
-                                host={competition.host}
-                                player={competition.player}
-                                course={competition.course}
-                                navigation={() => joinRoom(competition._id, competition.course, competition.host, competition.amount, competition.quiz)}
-                            />
-                        )
-                    })
-                    :
-                    <Text>No competitions ongoing now!</Text>
+                getCompetitionScreens()
             }
         </SafeAreaView>
     )

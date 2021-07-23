@@ -4,9 +4,9 @@ import { t } from "react-native-tailwindcss";
 import _ from "lodash"
 import { getCourseImage } from "../../../database/actions/Course";
 import Loading from "../../../components/Loading";
+import tailwind from "tailwind-rn";
 
-
-const ACCENTS = ["#2D99B9", "#7C82A0", "#009633"]
+const ACCENTS = ["#2D99B9", "#7C82A0", "#009633", "#D291BC", "#FFDFD3"]
 
 function Competition(props) {
     const [courseImage, setCourseImage] = useState("");
@@ -28,11 +28,25 @@ function Competition(props) {
             <View style={[t.wFull, { width: 200, marginLeft: 25, marginRight: 20 }]}>
                 <Text style={{ fontFamily: "Poppins-SemiBold", fontSize: 16 }}>{props.course}</Text>
                 <Text style={{ fontFamily: "Poppins-Normal", fontSize: 13, color: "#8888aa", marginBottom: 15 }}>1v1 Battle</Text>
-                <View style={[t.wFull, t.flex, t.flexRow, t.itemsCenter]}>
-                    <Image source={{ uri: props.host.avatar }} style={styles.avatar} />
-                    <View style={[t.mL3]}>
-                        <Text style={[t.textSm, t.fontSemibold]}>{props.host.name}</Text>
-                        <Text style={[t.textXs], { color: "#8888aa" }}>Student</Text>
+                <View style={[tailwind("flex flex-row justify-around items-center -mr-3")]}>
+                    <View style={[t.flex, t.flexRow, t.itemsCenter]}>
+                        <Image source={{ uri: props.host.avatar }} style={styles.avatar} />
+                        <View style={[t.mL2]}>
+                            <Text style={[t.textSm, t.fontSemibold]}>{props.host.name}</Text>
+                            <Text style={[t.textXs], { color: "#8888aa" }}>Student</Text>
+                        </View>
+                    </View>
+                    <View style={{
+                        backgroundColor: 'black',
+                        width: 1,
+                        height: "100%"
+                    }} />
+                    <View style={[t.flex, t.flexRow, t.itemsCenter]}>
+                        <Image source={{ uri: props.host.avatar }} style={styles.avatar} />
+                        <View style={[t.mL2]}>
+                            <Text style={[t.textSm, t.fontSemibold]}>{props.host.name}</Text>
+                            <Text style={[t.textXs], { color: "#8888aa" }}>Student</Text>
+                        </View>
                     </View>
                 </View>
                 <TouchableOpacity
@@ -50,10 +64,10 @@ function Competition(props) {
 
 const styles = StyleSheet.create({
     container: {
-        width: "85%",
+        width: "100%",
         height: 180,
         flexDirection: "row",
-        marginBottom: 30,
+        marginBottom: 10,
         alignItems: "center",
         borderRadius: 14,
         backgroundColor: "white",

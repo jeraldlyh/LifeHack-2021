@@ -34,7 +34,9 @@ function AuthProvider(props) {
     }, [])
 
     useEffect(() => {
-        console.log(currentProfile)
+        if (currentUser) {
+            retrieveProfile(currentUser.displayName)
+        }
     }, [currentProfile])
 
     const retrieveProfile = async (username) => {
