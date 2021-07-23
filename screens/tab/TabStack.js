@@ -11,6 +11,7 @@ const Tab = createBottomTabNavigator();
 const TabStack = () => {
     return (
         <Tab.Navigator
+            lazy={false}
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, size }) => {
                     let iconName;

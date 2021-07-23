@@ -33,6 +33,10 @@ function AuthProvider(props) {
         return unsubscribe
     }, [])
 
+    useEffect(() => {
+        console.log(currentProfile)
+    }, [currentProfile])
+
     const retrieveProfile = async (username) => {
         const profile = await getProfile(username)
         if (profile) {
@@ -60,9 +64,9 @@ function AuthProvider(props) {
                     .set({
                         _id: uuidv4(),
                         registeredAt: new Date().getTime(),
-                        currency: 0,
+                        currency: 1000,
                         enableNotification: false,
-                        questCompleted: 0,
+                        gamesPlayed: 0,
                         avatar: _.sample(AVATAR_URL),
                         bio: "Add a bio here",
                         role: "Student",
@@ -86,7 +90,7 @@ function AuthProvider(props) {
 
     return (
         <AuthContext.Provider value={value}>
-            {!loading && props.children}
+            {!loading && currentProfile && currentUser && props.children}
         </AuthContext.Provider>
     );
 };

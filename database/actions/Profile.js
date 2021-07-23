@@ -7,7 +7,7 @@ export const getProfile = (username) => {
         firebase.firestore().collection("User")
             .doc(username)
             .get()
-            .then(doc => resolve(_.merge(doc.data(), { name: doc.id })))
+            .then(doc => resolve(_.merge(doc.data(), { name: username })))
             .catch(error => console.log("Error in getProfile"))
     });
 };
@@ -28,5 +28,13 @@ export const addCurrency = (username, amount) => {
         .doc(username)
         .update({
             currency: firebase.firestore.FieldValue.increment(amount)
+        });
+};
+
+export const increaseGamePlayed = (username) => {
+    firebase.firestore().collection("User")
+        .doc(username)
+        .update({
+            gamesPlayed: firebase.firestore.FieldValue.increment(1)
         });
 };
