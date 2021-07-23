@@ -27,15 +27,15 @@ function LoginScreen({ navigation }) {
                         <TextInput
                             mode="flat"
                             label="Email"
-                            style={[t.h16, t.w4_5, t.roundedLg]}
+                            style={[t.h14, t.w4_5, t.roundedLg]}
                             value={email}
-                            onChangeText={email => setEmail(email)}
+                            onChangeText={email => setEmail(email.toLowerCase())}
                             keyboardType="email-address"
                         />
                         <TextInput
                             mode="flat"
                             label="Password"
-                            style={[t.h16, t.w4_5, t.roundedLg, t.mT3, t.mB5]}
+                            style={[t.h14, t.w4_5, t.roundedLg, t.mT3, t.mB6]}
                             value={password}
                             onChangeText={password => setPassword(password)}
                             secureTextEntry={secureText}
