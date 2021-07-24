@@ -6,7 +6,7 @@ import { getCourseImage } from "../../../database/actions/Course";
 import Loading from "../../../components/Loading";
 import tailwind from "tailwind-rn";
 
-const ACCENTS = ["#2D99B9", "#7C82A0", "#009633", "#D291BC", "#FFDFD3"]
+const ACCENTS = ["#2D99B9", "#7C82A0", "#009633"]
 
 function Competition(props) {
     const [courseImage, setCourseImage] = useState("");
@@ -81,7 +81,7 @@ function Competition(props) {
                     style={[tailwind("flex w-24 items-center self-center"), t.bgGray200, t.roundedFull, t.mT5, t.pY1]}
                     onPress={props.status ? console.log("") : props.navigation}
                 >
-                    <Text style={{ fontFamily: "Poppins-SemiBold", color: () => _.sample(ACCENTS) }}>
+                    <Text style={{ fontFamily: "Poppins-SemiBold", color: _.sample(ACCENTS) }}>
                         {props.status ? "-" : "Join battle"}
                     </Text>
                 </TouchableOpacity>

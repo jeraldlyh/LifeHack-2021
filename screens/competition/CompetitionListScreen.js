@@ -119,16 +119,16 @@ function CompetitionListScreen({ navigation }) {
         checkCompetitionAvailability(roomID, currentProfile.name, currentProfile.currency)
             .then(available => {
                 if (available) {
-                    if (!isHost(host.name)) {            // Deducts money from participant as well
+                    if (!isHost(currentProfile.name)) {            // Deducts money from participant as well
                         deductCurrency(currentProfile.name, currentProfile.currency, amount);
                     };
 
-                    const user = !host ? {              // Check if host is supplied via creation of room
+                    const user = {              // Check if host is supplied via creation of room
                         name: currentProfile.name,
                         avatar: currentProfile.avatar
-                    } : host
+                    }
 
-                    joinCompetition(roomID, user, isHost(host.name))
+                    joinCompetition(roomID, user, isHost(currentProfile.name))
                         .then(response => {
                             if (response) {
                                 navigation.push("Competition", {

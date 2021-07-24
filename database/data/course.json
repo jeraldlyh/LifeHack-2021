@@ -1,7 +1,7 @@
 [
     {
         "name": "Python for Beginners",
-        "image": "https://i.ibb.co/L0KYqn1/java.jpg",
+        "image": "https://i.ibb.co/h9Rg5QF/python-library-1.jpg",
         "quizzes": [
             {
                 "question": "How do you print in Python?",
@@ -31,6 +31,29 @@
                 },
                 "difficulty": 1,
                 "answer": 2
+            }
+        ]
+    },
+    {
+        "name": "Java for Beginners",
+        "image": "https://i.ibb.co/L0KYqn1/java.jpg",
+        "quizzes": [
+            
+        ]
+    },
+    {
+        "name": "GCE O-Level Math",
+        "image": "https://i.ibb.co/4P7gcG2/Pile-of-books-1.jpg",
+        "quizzes": [
+            {
+                "question": "What is the output of 1 + 2?",
+                "options": {
+                    "1": "2",
+                    "2": "1",
+                    "3": "3"
+                },
+                "difficulty": 1,
+                "answer": 3
             }
         ]
     }
