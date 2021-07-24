@@ -123,12 +123,12 @@ function CompetitionListScreen({ navigation }) {
                         deductCurrency(currentProfile.name, currentProfile.currency, amount);
                     };
 
-                    const user = {              // Check if host is supplied via creation of room
+                    const user = {
                         name: currentProfile.name,
                         avatar: currentProfile.avatar
                     }
 
-                    joinCompetition(roomID, user, isHost(currentProfile.name))
+                    joinCompetition(roomID, user, isHost(host.name))
                         .then(response => {
                             if (response) {
                                 navigation.push("Competition", {

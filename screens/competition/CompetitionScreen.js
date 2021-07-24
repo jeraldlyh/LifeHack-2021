@@ -98,13 +98,13 @@ function CompetitionScreen({ route, navigation }) {
         leaveCompetition(id, isHost())
             .then(response => {
                 if (response) {
-                    navigation.navigate("List");
+                    navigation.navigate("Tab");
                 };
             });
     };
 
     const exitRoom = () => {
-        navigation.navigate("List");
+        navigation.navigate("Tab");
     }
 
     if (!roomData) {
