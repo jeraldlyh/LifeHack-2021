@@ -29,6 +29,11 @@ Code submission for [NUS LifeHack 2021](https://lifehack.nuscomputing.com/)
 ***Competition***
 > Students are able to put their new knowledge to test by battling it out with other users to compete on the leaderboards.
 
+## Future Plans
+- Outsourcing of courses to education companies as well as teachers to better streamline the content and provide better quantity and quality of resources for our users
+- Integration of social features such as chats to allow users to connect with like-minded individuals on the platform
+- Implementation of third party API logins such as Google, Twitter or Github to ease user experience
+
 ## **Technology Stack**
 - [React Native](https://reactnative.dev/)
 - [Firestore](https://firebase.google.com/docs/firestore)
