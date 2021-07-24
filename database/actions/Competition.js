@@ -92,6 +92,8 @@ export const checkCompetitionAvailability = (docID, username, currency) => {
                 const competition = doc.data();
                 if (currency < competition.amount) {            // Insufficient currency to participate
                     resolve(false);
+                } else if (username === competition.host.name) {
+                    resolve(true);
                 } else if (username !== competition.host.name) {
                     if (competition.host.entered) {             // If host is already waiting for players
                         resolve(true);
@@ -101,7 +103,7 @@ export const checkCompetitionAvailability = (docID, username, currency) => {
                 } else {                // Permit host to join
                     resolve(true);
                 }
-            });
+            }).catch(error => console.log(error))
     });
 };
 
@@ -168,7 +170,7 @@ export const leaveCompetition = (docID, isHost) => {
     });
 };
 
-export const startCompetition = (docId) => {
+export const startCompetition = (docID) => {
     firebase.firestore().collection("Competition")
         .doc(docID)
         .update({
