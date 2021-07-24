@@ -1,4 +1,4 @@
-# LifeHack-2021
+# EduHome
 
 > By **geekignore**
 > - [Felice](https://github.com/felicepng/)
