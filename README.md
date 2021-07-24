@@ -6,9 +6,10 @@
 > - [Nicholas](http://github.com/oversparkling/)
 > - [Jerald](http://github.com/jeraldlyh/)
 
-| Platform             | Description                               |
-:--------------------- | :---------------------------------------: |
-| Youtube              | [App Demo]()  |
+| Platform             | Description                                                                                            |
+:--------------------- | :----------------------------------------------------------------------------------------------------: |
+| Youtube              | [App Demo](https://youtu.be/ZCD_KD0oD_8)                                                               |
+| Figma                | [Wireframes](https://www.figma.com/file/1B6Z7bEfnyFWEpj6xO2wkx/LifeHack-2021-geekignore?node-id=0%3A1) |
 
 Code submission for [NUS LifeHack 2021](https://lifehack.nuscomputing.com/)
 
