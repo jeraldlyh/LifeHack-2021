@@ -49,7 +49,9 @@ function AuthProvider(props) {
     }
 
     const loginUser = async (email, password) => {
-        return firebase.auth().signInWithEmailAndPassword(email.trim(), password.trim())
+        setLoading(true)
+        await firebase.auth().signInWithEmailAndPassword(email.trim(), password.trim())
+        setLoading(false)
     };
 
     const registerUser = async (username, email, password) => {

@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
+import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import tailwind from "tailwind-rn";
 import TopThree from './components/TopThree';
 import { getAllProfiles } from '../../database/actions/Profile';
@@ -23,7 +23,7 @@ export default function LeaderboardScreen(props) {
             return o.currency;
         });
 
-        const updatedTopThree = _.map(topThree, function (o) {
+        const updatedTopThree = _.map(_.reverse(topThree), function (o) {
             return {
                 name: o.name,
                 currency: o.currency,
@@ -56,89 +56,91 @@ export default function LeaderboardScreen(props) {
                     : null
             }
 
-            <View style={{ flexDirection: "row", justifyContent: "space-between", marginLeft: 30, marginRight: 30, marginTop: 20 }}>
-                <View style={{ marginTop: 15 }}>
-                    <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16, color: "#2B2B2B", margin: 3 }}>4</Text>
-                    <Image source={require("../../assets/icons/down.png")} style={styles.icon} />
+            <ScrollView>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", marginLeft: 30, marginRight: 30, marginTop: 30 }}>
+                    <View style={{ marginTop: 15 }}>
+                        <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16, color: "#2B2B2B", margin: 3 }}>4</Text>
+                        <Image source={require("../../assets/icons/down.png")} style={styles.icon} />
+                    </View>
+
+                    <TouchableOpacity style={styles.button}>
+                        <View style={{ flexDirection: "row", justifyContent: "space-between", margin: 20 }}>
+                            <Image source={require("../../assets/competition/theresa.jpg")} style={styles.profile3} />
+                            <View style={{ margin: 5 }}>
+                                <Text style={styles.header}>Theresa Wong</Text>
+                                <Text style={styles.text}>24 battles played</Text>
+                            </View>
+                            <View style={{ flexDirection: "row", margin: 15 }}>
+                                <Text style={styles.header}>198 </Text>
+                                <Image source={require("../../assets/icons/coin.png")} style={styles.icon} />
+                            </View>
+                        </View>
+                    </TouchableOpacity>
                 </View>
 
-                <TouchableOpacity style={styles.button}>
-                    <View style={{ flexDirection: "row", justifyContent: "space-between", margin: 20 }}>
-                        <Image source={require("../../assets/competition/theresa.jpg")} style={styles.profile3} />
-                        <View style={{ margin: 5 }}>
-                            <Text style={styles.header}>Theresa Wong</Text>
-                            <Text style={styles.text}>@Theresa_w</Text>
-                        </View>
-                        <View style={{ flexDirection: "row", margin: 15 }}>
-                            <Text style={styles.header}>198 </Text>
-                            <Image source={require("../../assets/icons/coin.png")} style={styles.icon} />
-                        </View>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", marginLeft: 30, marginRight: 30, marginTop: 20 }}>
+                    <View style={{ marginTop: 15 }}>
+                        <Image source={require("../../assets/icons/up.png")} style={styles.icon} />
+                        <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16, color: "#2B2B2B", margin: 3 }}>5</Text>
                     </View>
-                </TouchableOpacity>
-            </View>
 
-            <View style={{ flexDirection: "row", justifyContent: "space-between", marginLeft: 30, marginRight: 30, marginTop: 20 }}>
-                <View style={{ marginTop: 15 }}>
-                    <Image source={require("../../assets/icons/up.png")} style={styles.icon} />
-                    <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16, color: "#2B2B2B", margin: 3 }}>5</Text>
+                    <TouchableOpacity style={styles.button}>
+                        <View style={{ flexDirection: "row", justifyContent: "space-between", margin: 20 }}>
+                            <Image source={require("../../assets/competition/zachary.jpg")} style={styles.profile3} />
+                            <View style={{ margin: 5 }}>
+                                <Text style={styles.header}>Zachary Tan</Text>
+                                <Text style={styles.text}>20 battles played</Text>
+                            </View>
+                            <View style={{ flexDirection: "row", margin: 15 }}>
+                                <Text style={styles.header}>198 </Text>
+                                <Image source={require("../../assets/icons/coin.png")} style={styles.icon} />
+                            </View>
+                        </View>
+                    </TouchableOpacity>
                 </View>
 
-                <TouchableOpacity style={styles.button}>
-                    <View style={{ flexDirection: "row", justifyContent: "space-between", margin: 20 }}>
-                        <Image source={require("../../assets/competition/zachary.jpg")} style={styles.profile3} />
-                        <View style={{ margin: 5 }}>
-                            <Text style={styles.header}>Zachary Tan</Text>
-                            <Text style={styles.text}>@Zaccy</Text>
-                        </View>
-                        <View style={{ flexDirection: "row", margin: 15 }}>
-                            <Text style={styles.header}>198 </Text>
-                            <Image source={require("../../assets/icons/coin.png")} style={styles.icon} />
-                        </View>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", marginLeft: 30, marginRight: 30, marginTop: 20 }}>
+                    <View style={{ marginTop: 15 }}>
+                        <Image source={require("../../assets/icons/up.png")} style={styles.icon} />
+                        <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16, color: "#2B2B2B", margin: 3 }}>6</Text>
                     </View>
-                </TouchableOpacity>
-            </View>
 
-            <View style={{ flexDirection: "row", justifyContent: "space-between", marginLeft: 30, marginRight: 30, marginTop: 20 }}>
-                <View style={{ marginTop: 15 }}>
-                    <Image source={require("../../assets/icons/up.png")} style={styles.icon} />
-                    <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16, color: "#2B2B2B", margin: 3 }}>6</Text>
+                    <TouchableOpacity style={styles.button}>
+                        <View style={{ flexDirection: "row", justifyContent: "space-between", margin: 20 }}>
+                            <Image source={require("../../assets/competition/william.jpg")} style={styles.profile3} />
+                            <View style={{ margin: 5 }}>
+                                <Text style={styles.header}>William Wong</Text>
+                                <Text style={styles.text}>13 battles played</Text>
+                            </View>
+                            <View style={{ flexDirection: "row", margin: 15 }}>
+                                <Text style={styles.header}>198 </Text>
+                                <Image source={require("../../assets/icons/coin.png")} style={styles.icon} />
+                            </View>
+                        </View>
+                    </TouchableOpacity>
                 </View>
 
-                <TouchableOpacity style={styles.button}>
-                    <View style={{ flexDirection: "row", justifyContent: "space-between", margin: 20 }}>
-                        <Image source={require("../../assets/competition/william.jpg")} style={styles.profile3} />
-                        <View style={{ margin: 5 }}>
-                            <Text style={styles.header}>William Wong</Text>
-                            <Text style={styles.text}>@WillyW</Text>
-                        </View>
-                        <View style={{ flexDirection: "row", margin: 15 }}>
-                            <Text style={styles.header}>198 </Text>
-                            <Image source={require("../../assets/icons/coin.png")} style={styles.icon} />
-                        </View>
+                <View style={{ flexDirection: "row", justifyContent: "space-between", marginLeft: 30, marginRight: 30, marginTop: 20, marginBottom: 100 }}>
+                    <View style={{ marginTop: 15 }}>
+                        <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16, color: "#2B2B2B", margin: 3 }}>7</Text>
+                        <Image source={require("../../assets/icons/down.png")} style={styles.icon} />
                     </View>
-                </TouchableOpacity>
-            </View>
 
-            <View style={{ flexDirection: "row", justifyContent: "space-between", marginLeft: 30, marginRight: 30, marginTop: 20 }}>
-                <View style={{ marginTop: 15 }}>
-                    <Text style={{ fontFamily: 'Poppins-SemiBold', fontSize: 16, color: "#2B2B2B", margin: 3 }}>7</Text>
-                    <Image source={require("../../assets/icons/down.png")} style={styles.icon} />
+                    <TouchableOpacity style={styles.button}>
+                        <View style={{ flexDirection: "row", justifyContent: "space-between", margin: 20 }}>
+                            <Image source={require("../../assets/competition/lily.jpg")} style={styles.profile3} />
+                            <View style={{ margin: 5 }}>
+                                <Text style={styles.header}>Lily Lam</Text>
+                                <Text style={styles.text}>7 battles played</Text>
+                            </View>
+                            <View style={{ flexDirection: "row", margin: 15 }}>
+                                <Text style={styles.header}>198 </Text>
+                                <Image source={require("../../assets/icons/coin.png")} style={styles.icon} />
+                            </View>
+                        </View>
+                    </TouchableOpacity>
                 </View>
-
-                <TouchableOpacity style={styles.button}>
-                    <View style={{ flexDirection: "row", justifyContent: "space-between", margin: 20 }}>
-                        <Image source={require("../../assets/competition/lily.jpg")} style={styles.profile3} />
-                        <View style={{ margin: 5 }}>
-                            <Text style={styles.header}>Lily Lam</Text>
-                            <Text style={styles.text}>@Double L</Text>
-                        </View>
-                        <View style={{ flexDirection: "row", margin: 15 }}>
-                            <Text style={styles.header}>198 </Text>
-                            <Image source={require("../../assets/icons/coin.png")} style={styles.icon} />
-                        </View>
-                    </View>
-                </TouchableOpacity>
-            </View>
+            </ScrollView>
         </View>
     );
 };
