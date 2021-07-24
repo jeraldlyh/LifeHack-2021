@@ -8,10 +8,10 @@ export const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 const AVATAR_URL = [
-    "https://i.ibb.co/3FsT97Z/doctor.png",
-    "https://i.ibb.co/Sxzbj94/designer.png",
-    "https://i.ibb.co/t2nMrzL/woman.png",
-    "https://i.ibb.co/GPBdCP6/boy.png",
+    "https://i.ibb.co/L6rGpzJ/lily.jpg",
+    "https://i.ibb.co/sRtWHnD/theresa.jpg",
+    "https://i.ibb.co/54QxqQk/jerald.png",
+    "https://i.ibb.co/ZBz5JdW/nicholas.png",
 ];
 
 
