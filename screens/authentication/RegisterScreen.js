@@ -49,7 +49,12 @@ function RegisterScreen({ navigation }) {
                             value={password}
                             onChangeText={password => setPassword(password)}
                             secureTextEntry={secureText}
-                            right={<TextInput.Icon name="eye" onPress={() => setSecureText(!secureText)} />}
+                            right={
+                                secureText ?
+                                <TextInput.Icon name="eye" onPress={() => setSecureText(!secureText)}/>
+                                :
+                                <TextInput.Icon name="eye-off" onPress={() => setSecureText(!secureText)}/>
+                            }
                             theme={{ colors: { primary: "#FF5029" } }}
                         />
                         <Button onPress={() => registerUser(name, email, password)} text="Register" backgroundColor="#FE904B" textColor="#FFF" height={t.h12} />

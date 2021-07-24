@@ -40,7 +40,12 @@ function LoginScreen({ navigation }) {
                             value={password}
                             onChangeText={password => setPassword(password)}
                             secureTextEntry={secureText}
-                            right={<TextInput.Icon name="eye" onPress={() => setSecureText(!secureText)}/>}
+                            right={
+                                secureText ?
+                                <TextInput.Icon name="eye" onPress={() => setSecureText(!secureText)}/>
+                                :
+                                <TextInput.Icon name="eye-off" onPress={() => setSecureText(!secureText)}/>
+                            }
                             theme={{ colors: { primary: "#FF5029" } }}
                         />
                         <Button onPress={() => loginUser(email, password)} text="Login" backgroundColor="#FE904B" textColor="#FFF" height={t.h12} />
