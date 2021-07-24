@@ -8,7 +8,7 @@
 
 | Platform             | Description                                                                                            |
 :--------------------- | :----------------------------------------------------------------------------------------------------: |
-| Youtube              | [App Demo](https://youtu.be/ZCD_KD0oD_8)                                                               |
+| Youtube              | [App Demo](https://youtu.be/5Jt53EchiCY)                                                               |
 | Figma                | [Wireframes](https://www.figma.com/file/1B6Z7bEfnyFWEpj6xO2wkx/LifeHack-2021-geekignore?node-id=0%3A1) |
 
 Code submission for [NUS LifeHack 2021](https://lifehack.nuscomputing.com/)
