@@ -49,12 +49,13 @@ function AuthProvider(props) {
     }
 
     const loginUser = async (email, password) => {
-        setLoading(true)
-        await firebase.auth().signInWithEmailAndPassword(email.trim(), password.trim())
-        setLoading(false)
+        setLoading(true);
+        await firebase.auth().signInWithEmailAndPassword(email.trim(), password.trim());
+        setLoading(false);
     };
 
     const registerUser = async (username, email, password) => {
+        setLoading(true);
         return firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(userCredential => userCredential.user.updateProfile({
                 displayName: username
@@ -71,7 +72,8 @@ function AuthProvider(props) {
                         bio: "Add a bio here",
                         role: "Student",
                         interests: [],
-                    });
+                    })
+                    .then(() => setLoading(false));
             });
     };
 

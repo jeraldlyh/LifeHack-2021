@@ -119,7 +119,7 @@ export default function ForumHome() {
                     <Forum header = {"GCE O-Level Examination"}  members = {"5k"} description = "Forum to post about your O-Levels knowledge, tips and resources" image = {"olevels"} name = "Forums"/>
                 </TouchableOpacity>
                 <Forum header = {"Scholastic Aptitude Test (SAT)"} members = {"1.1k"} description = "Forum to share your SAT exam experiences, tips and resources" image = {"mobiledev"}/>
-                <Forum header = {"GCE O-Level Examination"} members = {"5k"} description = "Forum to post about your O-Levels knowledge, tips and resources" image = {"olevels"}/>
+                <Forum header = {"GCE A-Level Examination"} members = {"5k"} description = "Forum to post about your A-Levels knowledge, tips and resources" image = {"olevels"}/>
                 <Forum header = {"Mobile App Developers"} members = {"1.1k"} description = "Forum for mobile app developers to exchange tips and tricks" image = {"mobiledev"}/>
 
                 </View>
